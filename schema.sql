@@ -1,0 +1,4 @@
+DROP DATABASE IF EXISTS blogger;
+CREATE DATABASE blogger;
+
+SELECT * FROM blogger.Posts;
