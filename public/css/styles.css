@@ -2,20 +2,33 @@
   box-sizing:border-box;
 }
 
-nav,header {
+nav {
   background:#5e6672;
   color:white;
+  height:70px;
+  line-height:70px;
+}
+
+nav ul a{
+  padding: 0 30px;
+  font-size:1.2em;
+}
+
+.library {
+    background-image: url("../img/bookshelf.jpg");
 }
 
 h1 {
   margin:0;
+  padding-left:50px;
 }
 .container {
   width:90%;
 }
 
 .bookList, .bookInfo{
-  background:lightblue;
+
+  background: rgba(177, 187, 204,0.8);
   margin:20px;
   min-height:450px;
   text-align:center;
