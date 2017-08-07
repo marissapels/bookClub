@@ -1,18 +1,20 @@
 $(document).ready(function(){
+	//Materialize javascript code for modal
 	$('.modal').modal();
 
+	//When modal button is clicked, it clears out search contents from previous search
 	$(document).on("click", "#modalButton", function(){
 		event.preventDefault();
-		$("#title, #author, #genre, #comments").val("");
+		$("#title, #author, #comments").val("");
 	});
 
+	//When book submit button is clicked, it retrieves data from search fields and posts info to Library API
 	$(document).on("click", "#bookSubmit", function(){
 		event.preventDefault();
 		$("#tableLibrary").empty();
 		var newBook = {
 			title: $("#title").val().trim(),
 			author: $("#author").val().trim(),
-			genre: $("#genre").val().trim(),
 			comments: $("#comments").val().trim()
 		};
 		console.log(newBook);
@@ -22,12 +24,14 @@ $(document).ready(function(){
 		showBooks();
 	});
 
+	//function to add book to Library API
 	function addBook(data){
 		$.post("/api/library", data)
 			.done(function(){				
 		});
 	};	
 
+	//Retrieves title from Library API and displays on HTML
 	function showBooks(){
 		$.get("/api/library", function(data){
 			for (var i = 0; i < data.length; i++) {
@@ -35,21 +39,44 @@ $(document).ready(function(){
 				newRow.append("<td>"+ data[i].title + "</td>");
 				newRow.addClass("book")
 				newRow.attr("value", data[i].title);
+				newRow.attr("data-author", data[i].author);
 				$("#tableLibrary").append(newRow);
 			}
 		});
 	}
 
+	//when a book title is selected, it shows book info on HTML
 	$(document).on("click", ".book", function(){
+		$("#chooseTitle, #chooseComments, #chooseAuthor, #chooseRate, #chooseSummary").html("");
+		$("#chooseImage").attr("src","");
 		var clickedTitle = $(this).attr("value");
+		// var clickedAuthor = $(this).attr("data-author");
 		console.log(clickedTitle);
+		googleBook(clickedTitle);
 		$.get("/api/library", function(data){
 			for (var i = 0; i<data.length; i++){
 				if (clickedTitle===data[i].title){
-					var bookInfo = $("<p> Title: "+ data[i].title +"</p><p> Author: "+ data[i].author + "</p><p> Genre: "+ data[i].genre + "</p><p> Comments: "+data[i].comments+ "</p>");
-					$("#chooseBook").append(bookInfo);
+					$("#chooseTitle").html("Title: "+data[i].title);
+					$("#chooseComments").html("My Comments: "+data[i].comments);
 				}
 			}
 		});
 	});
+
+	function googleBook(titleSearch) {
+		var apiKey = "AIzaSyBUVyIW2d33WHzArLsdPx3X-X39qV-SZLY";
+		var queryURL= "https://www.googleapis.com/books/v1/volumes?q=intitle:"+ titleSearch +"&key=" + apiKey;
+
+		$.ajax({
+			url: queryURL,
+			method: "GET"
+		}).done(function(response){
+			console.log(response)
+			var results = response.items[0].volumeInfo;
+			$("#chooseAuthor").html("Author: "+results.authors[0]);
+			$("#chooseRate").html("Average Rating: "+results.averageRating+"/5.0");
+			$("#chooseSummary").html("Summary: "+results.description);
+			$("#chooseImage").attr("src",results.imageLinks.smallThumbnail);
+		});
+	};
 });
