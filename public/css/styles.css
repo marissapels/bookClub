@@ -5,6 +5,7 @@
 nav {
   background:#5e6672;
   color:white;
+<<<<<<< HEAD
   height: 70px;
   line-height: 70px;
 }
@@ -17,11 +18,40 @@ nav ul a {
 h1 {
   margin:0px;
   padding-left:50px;
+=======
+  height:70px;
+  line-height:70px;
+  font-family: 'Inconsolata', monospace;
+}
+
+nav ul a{
+  padding: 0 30px;
+  font-size:1.2em;
+}
+
+.library {
+    background-image: url("../img/bookshelf.jpg");
+}
+
+h1 {
+  margin:0;
+  padding-left:50px;
+  font-family: 'PT Mono', monospace;
+  font-weight:bold;
+}
+
+h2 {
+  margin: 10px;
+  font-family: 'PT Mono', monospace;
+  font-size: 2.7em;
+  font-weight: bold;
+>>>>>>> 5c8a67180e9cc4417879d397e6a698baa9326a47
 }
 .container {
   width:90%;
 }
 
+<<<<<<< HEAD
 .library {
   background-image: url("../img/bookImage2.jpg");
   background-size:cover;
@@ -29,9 +59,32 @@ h1 {
 
 .bookList, .bookInfo{
   background: rgba(184, 199, 224,0.8);
+=======
+.bookList, .bookInfo, .discussions{
+  background: rgba(220, 223, 229,0.9);
+>>>>>>> 5c8a67180e9cc4417879d397e6a698baa9326a47
   margin:20px;
   min-height:450px;
   text-align:center;
   border-radius:20px;
   padding:10px;
+  font-family: 'Inconsolata', monospace;
+  font-weight: bold;
+  font-size: 1.1em;
+
+}
+
+.bookInfo p {
+    margin: 8px;
+}
+
+td, tr {
+    padding: 5px;
+    font-weight: bold;
+    text-align:center;
+}
+
+.book:hover {
+  background:white;
+  cursor:pointer;
 }
