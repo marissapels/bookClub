@@ -36,7 +36,7 @@ h2 {
   width:90%;
 }
 
-.bookList, .bookInfo{
+.bookList, .bookInfo, .discussions{
   background: rgba(220, 223, 229,0.9);
   margin:20px;
   min-height:450px;
