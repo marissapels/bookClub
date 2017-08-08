@@ -5,7 +5,6 @@
 nav {
   background:#5e6672;
   color:white;
-<<<<<<< HEAD
   height: 70px;
   line-height: 70px;
 }
@@ -18,7 +17,6 @@ nav ul a {
 h1 {
   margin:0px;
   padding-left:50px;
-=======
   height:70px;
   line-height:70px;
   font-family: 'Inconsolata', monospace;
@@ -52,6 +50,7 @@ h2 {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 .library {
   background-image: url("../img/bookImage2.jpg");
   background-size:cover;
@@ -61,6 +60,9 @@ h2 {
   background: rgba(184, 199, 224,0.8);
 =======
 .bookList, .bookInfo, .discussions{
+=======
+.bookList, .bookInfo, .discussions, .groups {
+>>>>>>> f07638a92a89b3e0c4ccbdf7a9bd324c22ddb1c4
   background: rgba(220, 223, 229,0.9);
 >>>>>>> 5c8a67180e9cc4417879d397e6a698baa9326a47
   margin:20px;
@@ -87,4 +89,8 @@ td, tr {
 .book:hover {
   background:white;
   cursor:pointer;
+}
+
+.btn {
+  margin-left: 2px;
 }
