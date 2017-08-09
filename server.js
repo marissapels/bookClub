@@ -18,7 +18,7 @@ var db = require("./models");
 // Requiring data
 var userData = require("./public/data/data-user.js");
 var groupData = require("./public/data/data-group.js");
-var userGroupData = require("./public/data/data-group.js");
+var discussionData = require("./public/data/data-discussion.js");
 
 // Sets up the Express app to handle data parsing
 app.use(bodyParser.json());
@@ -48,27 +48,13 @@ db.sequelize.sync({ force: true }).then(function () {
     user.addGroup([1, 2, 3, 4]);
   });
 
-  db.User.findById(2).then(function (user) {
-    user.addGroup([1, 2, 3, 4]);
-  });
-
-  db.User.findById(3).then(function (user) {
-    user.addGroup([1, 2, 3, 4]);
-  });
-
-  db.User.findById(4).then(function (user) {
-    user.addGroup([1, 2, 3, 4]);
-  });
-
-
-
-
-
-
-
-
+  db.Discussion.bulkCreate(discussionData);
 
   app.listen(PORT, function () {
     console.log("App listening on PORT " + PORT);
   });
 });
+
+
+
+
