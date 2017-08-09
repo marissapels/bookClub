@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Dewey</title>
+  <!-- Latest compiled and minified CSS & JS -->
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.css">
+  <link href="https://fonts.googleapis.com/css?family=Inconsolata|PT+Mono|Saira+Semi+Condensed|Titillium+Web" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="css/styles.css">
+</head>
+
+<body class="library">
+<div>
+  <!-- Navigation Bar -->
+  <nav class="z-depth-0">
+    <div class="nav-wrapper">
+    <a href="library.html" class="brand-logo"><h1>Dewey.</h1></a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+      </ul>
+    </div>
+  </nav>
+  
+  <!-- Container to create and show books -->
+  <div class="container">
+    <div class="row">
+      <div class="col s3"></div>
+      <div class="col s6">
+          <div class="login">
+            <h2>Login</h2>
+            <form>
+              <label for="email1">Email</label>
+              <input type="text" id="email1">
+              <label for="password1">Password</label>
+              <input type="password" id="password1">
+              <a href="library.html" id="submitLogin"><button class="btn waves-effect waves-light" > Submit</button></a>
+              <a class="btn modal-trigger" href="#modal2" id="modalButton">New User</a>
+            </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <!-- Modal Structure -->
+<div id="modal2" class="modal">
+  <div class="modal-content">
+    <form>
+      <label for="email2">Email</label>
+      <br>
+      <input type="text" id="email2">
+      <label for="username">Username</label>
+      <br>
+      <input type="text" id="username">
+      <label for="password2">Enter a Password</label>
+      <br>
+      <input type="password" id="password2">
+      <label for="passwordCheck">Re-type your Password</label>
+      <br>
+      <input type="password" id="passwordCheck">
+    </form>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action modal-close btn-flat"  id="submitNewUser">Add</a>
+  </div>
+</div>
+
+  <!-- Custom Script -->
+  <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
+  <script type="text/javascript" src="js/library.js"></script>
+
+</body>
+</html>

@@ -36,7 +36,12 @@ h2 {
   width:90%;
 }
 
-.bookList, .bookInfo{
+.library {
+  background-image: url("../img/bookImage2.jpg");
+  background-size:cover;
+}
+
+.bookList, .bookInfo, .discussions, .groups, .login {
   background: rgba(220, 223, 229,0.9);
   margin:20px;
   min-height:450px;
