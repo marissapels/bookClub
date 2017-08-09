@@ -24,21 +24,11 @@ module.exports = function (app) {
             })
     })
 
-
-
-    /*    app.get("/api/authors/:id", function(req, res) {
-    
-        
-        db.Author.findOne({
-          where: {
-            id: req.params.id
-          },
-          include: [db.Post]
-        }).then(function(dbAuthor) {
-          res.json(dbAuthor);
-        });
-      });  */
-
-
+    app.get("/api/discussions", function(req, res) {
+        db.Discussion.findAll({})
+        .then(function(discussions) {
+            res.json(discussions)
+        })
+    })
 
 }

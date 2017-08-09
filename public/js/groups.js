@@ -46,8 +46,8 @@ $(document).ready(function () {
     $(document).on("click", "#view-members", function () {
         $.get("/api/groups", function (data) {
             for (var i = 0; i < data.length; i++) {
-
                 
+
             }
 
         });
