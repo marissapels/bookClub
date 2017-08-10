@@ -35,6 +35,7 @@ require("./routes/html-routes.js")(app);
 require("./routes/library-api-routes.js")(app);
 require("./routes/groups-api-routes.js")(app);
 require("./routes/post-api-routes.js")(app);
+require("./routes/discussion-api-routes.js")(app);
 
 // Syncing our sequelize models and then starting our Express app
 // =============================================================

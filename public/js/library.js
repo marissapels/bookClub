@@ -1,3 +1,116 @@
+// //Initialize Firebase
+var loggedIn = false;
+
+
+var config = {
+  apiKey: "AIzaSyBUVyIW2d33WHzArLsdPx3X-X39qV-SZLY",
+  authDomain: "bookclub-ed08b.firebaseapp.com",
+  databaseURL: "https://bookclub-ed08b.firebaseio.com",
+  projectId: "bookclub-ed08b",
+  storageBucket: "bookclub-ed08b.appspot.com",
+  messagingSenderId: "874403788158"
+};
+firebase.initializeApp(config);
+
+var database = firebase.database();
+
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    // User is signed in.
+    var displayName = user.displayName;
+    var email = user.email;
+    var uid = user.uid;
+    var providerData = user.providerData;
+    loggedIn = true;
+  } else {
+  	logginIn=false;
+  }
+});
+
+var dataMethods = {
+  //Function that creates a new user
+  signUp: function(email, pwd) {
+      firebase.auth().createUserWithEmailAndPassword(email, pwd).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // [START_EXCLUDE]
+      if (errorCode == 'auth/weak-password') {
+        $("#sign-up-err").text('The password is too weak.');
+      } else {
+        $("#sign-up-err").text(errorMessage);
+      }
+      console.log(error);
+      // [END_EXCLUDE]
+    });
+  },
+  //Function that allows login of an existing user
+  logIn: function(email, password) {
+      firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // [START_EXCLUDE]
+      if (errorCode === 'auth/wrong-password') {
+          $("#sign-in-err").text('Wrong password.');
+      } else {
+          $("#sign-in-err").text(errorMessage);
+      }
+      console.log(error);
+      // [END_EXCLUDE]
+      });
+  },
+  //Function that logs out a user that is logged in
+  logOut: function() {
+      firebase.auth().signOut().then(function() {
+      // Sign-out successful.
+      }).catch(function(error) {
+      // An error happened.
+          console.log(error);
+      });
+  },
+}
+
+/*************Firebase Click Events*************/
+
+//Login
+$("#submitLogin").on("click", function() {
+		event.preventDefault();
+    var email = $("#email1").val();
+    var pwd = $("#password1").val();
+    dataMethods.logIn(email, pwd);
+});
+//Sign-up
+$("#submitNewUser").on("click", function() {
+    var email = $("#email2").val();
+    var pwd = $("#password2").val();
+    var pwdCheck = $("#passwordCheck").val();
+    if(pwd === pwdCheck) {
+        dataMethods.signUp(email, pwd);
+    } else {
+        $("#sign-up-err").text("Your passwords do not match. Please correct and submit again.")
+    }
+    dataMethods.logIn(email, pwd);
+    var newUserInfo = {
+    	name: $("#username").val().trim(),
+    	firebase:firebase.auth().currentUser.uid
+    }
+    console.log(newUserInfo);
+    // createUser(newUserInfo);
+});
+
+// function createUser(data){
+// 	$.post("/api/users",data)
+// 			.done(function(){				
+// 	});
+// };	
+//Logout
+$("#logout").on("click", function(){
+    dataMethods.logOut();
+});
+
+// *************************************************************************
+
 $(document).ready(function(){
 	//Materialize javascript code for modal
 	$('.modal').modal();
@@ -44,6 +157,8 @@ $(document).ready(function(){
 			}
 		});
 	}
+
+// **************************************Google Books API******************************************
 
 	//when a book title is selected, it shows book info on HTML
 	$(document).on("click", ".book", function(){
