@@ -83,8 +83,9 @@ td, tr {
 
 .btn {
   margin-left: 2px !important;
+  margin-bottom: 2px !important;
 }
 
-#member-modal {
+#member-modal, #groups-modal {
   overflow: visible;
 }

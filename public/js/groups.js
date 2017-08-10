@@ -9,7 +9,11 @@ $(document).ready(function () {
     showGroups();
 
     function showGroups() {
-        $.get("/api/groups", function (data) {
+        //***** Change this to be updated for active user
+        var currentUserID = 1
+        var queryUrl = "/api/users/" + currentUserID + "/groups"
+
+        $.get(queryUrl, function (data) {
             for (var i = 0; i < data.length; i++) {
                 /*                 var newRow = $("<tr>");
                                 newRow.append("<td>" + data[i].name + "</td>");
@@ -49,6 +53,38 @@ $(document).ready(function () {
         });
     }
 
+    var allGroupData;
+    var allGroups = {};
+
+    $("#join-groups").on("click", function () {
+        $('.userInp2').val("");
+        $('#groups-modal').modal('open');
+
+        $.get("/api/groups", function (data) {
+            allGroupData = data;
+
+            for (var i = 0; i < data.length; i++) {
+                allGroups[data[i].name] = "";
+            }
+            console.log(allGroups);
+
+            $('.chips-autocomplete').material_chip({
+                autocompleteOptions: {
+                    data: allGroups,
+                    limit: 20,
+                    minLength: 1
+                }
+            });
+
+
+
+        })
+
+
+    });
+
+
+
     var allUserData;
     var allUsers = {};
 
@@ -74,10 +110,10 @@ $(document).ready(function () {
                 newChip.attr("user-id", data[i].id);
                 newChip.text(data[i].userName);
 
-                /*                 var userImage = $("<img>");
-                                userImage.attr("src", data[i].photoRef);
-                                userImage.attr("alt", "User Image")
-                                newChip.prepend(userImage); */
+                var userImage = $("<img>");
+                userImage.attr("src", data[i].photoRef);
+                userImage.attr("alt", "User Image")
+                newChip.prepend(userImage);
 
                 $('#members').append(newChip);
             }
@@ -89,7 +125,7 @@ $(document).ready(function () {
             for (var i = 0; i < data.length; i++) {
                 allUsers[data[i].userName] = data[i].photoRef;
             }
-
+            console.log(allUsers);
             $('input.autocomplete').autocomplete({
                 data: allUsers,
                 limit: 20,
@@ -107,9 +143,10 @@ $(document).ready(function () {
 
         var userName = $('.userInp').val().trim();
 
-        index = allUserData.findIndex(x => x.userName == userName);
+        var index = allUserData.findIndex(x => x.userName == userName);
 
         var newUserID = allUserData[index].id;
+        var newUserPhoto = allUserData[index].photoRef;
 
         var addedUser = {
             id: newUserID
@@ -118,15 +155,22 @@ $(document).ready(function () {
         $.post(queryUrl, addedUser, function (data) {
             console.log(data[0]);
 
-             $('.userInp').val("");
+            $('.userInp').val("");
             //$('#members').empty();
             //getMembers(groupID);
 
-             var newChip = $("<div>");
+            var newChip = $("<div>");
             newChip.addClass("chip");
             newChip.attr("user-id", data.UserId);
-            newChip.text(userName);  
+            newChip.text(userName);
+
+            var userImage = $("<img>");
+            userImage.attr("src", newUserPhoto);
+            userImage.attr("alt", "User Image")
+            newChip.prepend(userImage);
+
             $('#members').append(newChip);
+
         })
     });
 
