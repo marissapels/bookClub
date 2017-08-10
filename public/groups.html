@@ -9,6 +9,7 @@
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.css">
     <link href="https://fonts.googleapis.com/css?family=McLaren|Raleway|Grand+Hotel" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 
@@ -39,7 +40,7 @@
                     <!-- Generate List of Discussions here and ability to open individual chats-->
                     <div>
                         <!-- <table id="groupList"></table> -->
-                        <ul class="collapsible" data-collapsible="accordion" id="groupList">
+                        <ul class="collapsible popout" data-collapsible="accordion" id="groupList">
                         </ul>
                     </div>
 
@@ -48,20 +49,29 @@
         </div>
     </div>
 
-
-    <!-- Modal Structure -->
-    <div id="chat" class="modal">
+    <div id="member-modal" class="modal">
         <div class="modal-content">
-            <!-- Chat Display Setup -->
-            <div id="chats">
-                <div id="chat-messages"></div>
-                <!-- <div id="chat-bar"></div> -->
-            </div>
-        </div>
-        <!-- Chat Input Here -->
-        <div class="modal-footer">
-            <input type="text" id="chat-input" placeholder="Add to the conversation!">
-            <a class="modal-action btn-flat" id="chat-send">Send</a>
+            <h4>Group Members</h4>
+            <form class="col s12">
+                <div class="row">
+                    <div id="members">
+                    </div>
+                    <!-- group members are populated here -->
+                    <br>
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">account_circle</i>
+                        <input type="text" id="autocomplete-input" class="autocomplete userInp">
+                        <label for="autocomplete-input">Add Member</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col s12"></div>
+                    </div>
+                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn">Close</a>
+                    <a href="#!" class="waves-effect waves-green btn" id="add-user">Add</a>
+                </div>
+            </form>
         </div>
     </div>
 

@@ -2,9 +2,7 @@ var db = require("../models");
 
 module.exports = function (app) {
 
-    //get all groups for a user
-
-    app.get("/api/groups", function (req, res) {
+    app.get("/api/groups/", function (req, res) {
         db.User.findById(1)
             .then(function (user) {
                 user.getGroups()
@@ -14,8 +12,8 @@ module.exports = function (app) {
             });
     })
 
-    app.get("/api/groups/members", function (req, res) {
-        db.Group.findById(1)
+    app.get("/api/groups/:id/members", function (req, res) {
+        db.Group.findById(req.params.id)
             .then(function (group) {
                 group.getUsers()
                     .then(function (members) {
@@ -24,11 +22,22 @@ module.exports = function (app) {
             })
     })
 
-    app.get("/api/discussions", function(req, res) {
-        db.Discussion.findAll({})
-        .then(function(discussions) {
-            res.json(discussions)
+    app.get("/api/users", function (req, res) {
+        db.User.findAll({})
+            .then(function (users) {
+                res.json(users);
+            })
+    })
+
+    app.post("/api/groups/:id/members", function (req, res) {
+        db.Group.findById(req.params.id)
+        .then(function (group) {
+            group.addUser(req.body.id)
+                .then(function(result) {
+                    res.json(result);
+                })
         })
     })
 
 }
+
