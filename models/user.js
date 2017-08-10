@@ -4,10 +4,10 @@ module.exports = function (sequelize, DataTypes) {
         userName: {
             type: DataTypes.STRING,
             allowNull: false
-        },
-        firebaseId : {
-            type: DataTypes.String,
         }
+        // firebaseId : {
+        //     type: DataTypes.String,
+        // }
     });
 
     User.associate = function (models) {
