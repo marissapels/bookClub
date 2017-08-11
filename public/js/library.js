@@ -152,7 +152,10 @@ $("#logout").on("click", function(){
 
 	//Retrieves title from Library API and displays on HTML
 	function showBooks(){
-		$.get("/api/library", function(data){
+    var currentUser = firebase.auth().currentUser.uid;
+    var query = "/api/library/" + currentUser;
+    console.log(query);
+		$.get(query, function(data){
 			for (var i = 0; i < data.length; i++) {
 				var newRow = $("<tr>");
 				newRow.append("<td>"+ data[i].title + "</td>");
