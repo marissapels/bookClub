@@ -1,8 +1,8 @@
 var db = require("../models");
 
 module.exports = function(app){
-	app.get("/api/library", function (req,res){
-		db.Library.findAll()
+	app.get("/api/library/:id", function (req,res){
+		db.Library.findAll({ where: { firebase: req.params.id}})
 		.then(function(results){
 			res.json(results);
 		});
