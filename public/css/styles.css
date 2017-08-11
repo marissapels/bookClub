@@ -5,6 +5,18 @@
 nav {
   background:#5e6672;
   color:white;
+  height: 70px;
+  line-height: 70px;
+}
+
+nav ul a {
+  font-size: 1.2em;
+  padding: 0 30px;
+}
+
+h1 {
+  margin:0px;
+  padding-left:50px;
   height:70px;
   line-height:70px;
   font-family: 'Inconsolata', monospace;
@@ -31,6 +43,7 @@ h2 {
   font-family: 'PT Mono', monospace;
   font-size: 2.7em;
   font-weight: bold;
+
 }
 .container {
   width:90%;
@@ -51,7 +64,6 @@ h2 {
   font-family: 'Inconsolata', monospace;
   font-weight: bold;
   font-size: 1.1em;
-
 }
 
 .bookInfo p {
@@ -67,4 +79,8 @@ td, tr {
 .book:hover {
   background:white;
   cursor:pointer;
+}
+
+.btn {
+  margin-left: 2px;
 }
