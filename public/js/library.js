@@ -88,6 +88,7 @@ $("#submitLogin").on("click", function() {
     var email = $("#email1").val();
     var pwd = $("#password1").val();
     dataMethods.logIn(email, pwd);
+    window.open(this.href);
 });
 //Sign-up
 $("#submitNewUser").on("click", function() {
@@ -132,7 +133,8 @@ $("#logout").on("click", function(){
 		var newBook = {
 			title: $("#title").val().trim(),
 			author: $("#author").val().trim(),
-			comments: $("#comments").val().trim()
+			comments: $("#comments").val().trim(),
+      firebase: firebase.auth().currentUser.uid
 		};
 		console.log(newBook);
 
