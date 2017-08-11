@@ -7,6 +7,10 @@ module.exports = function (sequelize, DataTypes) {
         },
         firebase : {
             type: DataTypes.STRING,
+        },
+        photoRef: {
+            type: DataTypes.STRING,
+
         }
     });
 

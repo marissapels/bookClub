@@ -15,7 +15,7 @@ var chatName, username;
 
 /****************** Firebase Chat Functions *******************/
 // On-click event to open and post to specific discussions in Firebase
-$("#discussionList").on("click", ".disc-btn", function(){
+$(document).on("click", ".disc-btn", function(){
   // Variables to store information for Firebase
   chatName = $(this).attr("data-key");
   username = "Whitney"; //Make this dynamic for group members
@@ -68,7 +68,8 @@ $("#discussionList").on("click", ".disc-btn", function(){
 
 /****************** Display Discussions *******************/
 // Function to read all active discussions
-function readDiscussions(){
+
+/* function readDiscussions(){
   $.get("/api/group/discussions", function(data){
     for (var i=0; i<data.length; i++){
       var discussionRow = $("<li>");
@@ -94,7 +95,7 @@ function readDiscussions(){
       $('.collapsible').collapsible();
     }
   })
-}
+} */
 
 /****************** Create New Discussions *******************/
 // Function to create new discussions
@@ -140,5 +141,5 @@ $(document).ready(function(){
 
 
 // Call functions here
-readDiscussions();
+//readDiscussions();
 newDiscussion();
