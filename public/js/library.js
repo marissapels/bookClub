@@ -30,7 +30,14 @@ firebase.auth().onAuthStateChanged(function(user) {
 var dataMethods = {
   //Function that creates a new user
   signUp: function(email, pwd) {
-      firebase.auth().createUserWithEmailAndPassword(email, pwd).catch(function(error) {
+    firebase.auth().createUserWithEmailAndPassword(email, pwd).then(function(authdata){
+        var newUser={
+          username: $("#username").val().trim(),
+          firebase: firebase.auth().currentUser.uid   
+        };
+        console.log(newUser);
+        createUser(newUser);
+      }).catch(function(error) {
       // Handle Errors here.
       var errorCode = error.code;
       var errorMessage = error.message;
@@ -40,8 +47,10 @@ var dataMethods = {
       } else {
         $("#sign-up-err").text(errorMessage);
       }
+
       console.log(error);
       // [END_EXCLUDE]
+
     });
   },
   //Function that allows login of an existing user
@@ -79,6 +88,7 @@ $("#submitLogin").on("click", function() {
     var email = $("#email1").val();
     var pwd = $("#password1").val();
     dataMethods.logIn(email, pwd);
+    window.open(this.href);
 });
 //Sign-up
 $("#submitNewUser").on("click", function() {
@@ -90,20 +100,15 @@ $("#submitNewUser").on("click", function() {
     } else {
         $("#sign-up-err").text("Your passwords do not match. Please correct and submit again.")
     }
-    dataMethods.logIn(email, pwd);
-    var newUserInfo = {
-    	name: $("#username").val().trim(),
-    	firebase:firebase.auth().currentUser.uid
-    }
-    console.log(newUserInfo);
-    // createUser(newUserInfo);
 });
 
-// function createUser(data){
-// 	$.post("/api/users",data)
-// 			.done(function(){				
-// 	});
-// };	
+function createUser(data){
+	$.post("/api/users",data)
+			.done(function(){		
+      console.log("created user: " + data);		
+	});
+};	
+
 //Logout
 $("#logout").on("click", function(){
     dataMethods.logOut();
@@ -111,7 +116,7 @@ $("#logout").on("click", function(){
 
 // *************************************************************************
 
-$(document).ready(function(){
+
 	//Materialize javascript code for modal
 	$('.modal').modal();
 
@@ -128,7 +133,8 @@ $(document).ready(function(){
 		var newBook = {
 			title: $("#title").val().trim(),
 			author: $("#author").val().trim(),
-			comments: $("#comments").val().trim()
+			comments: $("#comments").val().trim(),
+      firebase: firebase.auth().currentUser.uid
 		};
 		console.log(newBook);
 
@@ -146,7 +152,10 @@ $(document).ready(function(){
 
 	//Retrieves title from Library API and displays on HTML
 	function showBooks(){
-		$.get("/api/library", function(data){
+    var currentUser = firebase.auth().currentUser.uid;
+    var query = "/api/library/" + currentUser;
+    console.log(query);
+		$.get(query, function(data){
 			for (var i = 0; i < data.length; i++) {
 				var newRow = $("<tr>");
 				newRow.append("<td>"+ data[i].title + "</td>");
@@ -194,4 +203,3 @@ $(document).ready(function(){
 			$("#chooseImage").attr("src",results.imageLinks.smallThumbnail);
 		});
 	};
-});
