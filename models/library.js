@@ -11,12 +11,15 @@ module.exports = function (sequelize, DataTypes) {
 
 		comments: {
 			type: DataTypes.TEXT
+		},
+		firebase : {
+			type: DataTypes.TEXT
 		}
 	});
 
-	Library.associate = function (models) {
-		Library.belongsTo(models.User);
-	};
+	// Library.associate = function (models) {
+	// 	Library.belongsTo(models.User);
+	// };
 
 	return Library;
 };

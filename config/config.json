@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "",
+    "password": "Map-121790",
     "database": "dewey",
     "host": "127.0.0.1",
     "dialect": "mysql"

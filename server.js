@@ -16,9 +16,9 @@ var PORT = process.env.PORT || 8080;
 var db = require("./models");
 
 // Requiring data
-var userData = require("./public/data/data-user.js");
-var groupData = require("./public/data/data-group.js");
-var discussionData = require("./public/data/data-discussion.js");
+// var userData = require("./public/data/data-user.js");
+// var groupData = require("./public/data/data-group.js");
+// var discussionData = require("./public/data/data-discussion.js");
 
 // Sets up the Express app to handle data parsing
 app.use(bodyParser.json());
@@ -34,22 +34,22 @@ app.use(express.static("public"));
 require("./routes/html-routes.js")(app);
 require("./routes/library-api-routes.js")(app);
 require("./routes/groups-api-routes.js")(app);
-require("./routes/post-api-routes.js")(app);
+require("./routes/user-api-routes.js")(app);
 require("./routes/discussion-api-routes.js")(app);
 
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
 db.sequelize.sync({ force: true }).then(function () {
 
-  db.User.bulkCreate(userData);
+  // db.User.bulkCreate(userData);
 
-  db.Group.bulkCreate(groupData);
+  // db.Group.bulkCreate(groupData);
 
-  db.User.findById(1).then(function (user) {
-    user.addGroup([1, 2, 3, 4]);
-  });
+  // db.User.findById(1).then(function (user) {
+  //   user.addGroup([1, 2, 3, 4]);
+  // });
 
-  db.Discussion.bulkCreate(discussionData);
+  // db.Discussion.bulkCreate(discussionData);
 
   app.listen(PORT, function () {
     console.log("App listening on PORT " + PORT);
