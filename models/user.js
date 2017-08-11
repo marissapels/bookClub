@@ -6,7 +6,7 @@ module.exports = function (sequelize, DataTypes) {
             allowNull: false
         },
         firebaseId : {
-            type: DataTypes.String,
+            type: DataTypes.STRING,
         }
     });
 

@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <title>Discussions</title>
   <!-- Latest compiled and minified CSS & JS -->
-  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.css">
   <link href="https://fonts.googleapis.com/css?family=McLaren|Raleway|Grand+Hotel" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="css/styles.css">
@@ -34,9 +34,9 @@
         <div class="discussions">
           <h2>My Group Discussions</h2>
           
-          <!-- Generate List of Discussions here and ability to open individual chats-->
+           <!-- Generate List of Discussions here and ability to open individual chats -->
           <div>
-            <table id="discussionList"></table>
+            <ul class="collapsible" data-collapsible="accordion" id="discussionList"></ul>
           </div>
 
         </div>
