@@ -54,7 +54,7 @@ h2 {
   background-size:cover;
 }
 
-.bookList, .bookInfo, .discussions, .groups {
+.bookList, .bookInfo, .discussions, .groups, .login {
   background: rgba(220, 223, 229,0.9);
   margin:20px;
   min-height:450px;
@@ -64,7 +64,6 @@ h2 {
   font-family: 'Inconsolata', monospace;
   font-weight: bold;
   font-size: 1.1em;
-
 }
 
 .bookInfo p {
@@ -83,5 +82,10 @@ td, tr {
 }
 
 .btn {
-  margin-left: 2px;
+  margin-left: 2px !important;
+  margin-bottom: 2px !important;
+}
+
+#member-modal, #groups-modal {
+  overflow: visible;
 }

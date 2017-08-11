@@ -1,16 +1,20 @@
 
 var userData = [
     {
-        "userName": "Akia"
+        "userName": "Akia",
+        "photoRef": "../img/akia.png"
     },
     {
-        "userName": "Marissa"
+        "userName": "Marissa",
+        "photoRef": "../img/marissa.png"
     },
     {
-        "userName": "Whitney"
+        "userName": "Whitney",
+        "photoRef": "../img/whitney.png"
     },
     {
-        "userName": "Andrew"
+        "userName": "Andrew",
+        "photoRef": "../img/andrew.png"
     }
     
 ];
