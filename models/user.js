@@ -1,4 +1,4 @@
-
+'use strict';
 module.exports = function (sequelize, DataTypes) {
     var User = sequelize.define('User', {
         userName: {
@@ -6,10 +6,11 @@ module.exports = function (sequelize, DataTypes) {
             allowNull: false
         },
         firebaseId: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
         },
         photoRef: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+
         }
     });
 

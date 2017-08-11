@@ -36,7 +36,8 @@
             <div class="col s10 offset-s1">
                 <div class="groups">
                     <h2>My Groups</h2>
-                    <a class="waves-effect waves-light btn" href="#groups-modal" id="join-groups">Join New Group</a>
+                    <a class="waves-effect waves-light btn" href="#new-group-modal" id="create-group">Create New Group</a>
+                    <a class="waves-effect waves-light btn" href="#groups-modal" id="join-groups">Join A Group</a>
 
                     <!-- Generate List of Discussions here and ability to open individual chats-->
                     <div>
@@ -50,11 +51,72 @@
         </div>
     </div>
 
+    <div id="chat" class="modal">
+        <div class="modal-content">
+            <!-- Chat Display Setup -->
+            <div id="chats">
+                <div id="chat-messages"></div>
+                <!-- <div id="chat-bar"></div> -->
+            </div>
+        </div>
+        <!-- Chat Input Here -->
+        <div class="modal-footer">
+            <input type="text" id="chat-input" placeholder="Add to the conversation!">
+            <a class="modal-action btn-flat" id="chat-send">Send</a>
+        </div>
+    </div>
+
+    <div id="new-group-modal" class="modal">
+        <div class="modal-content">
+            <h4>Creat a Group</h4>
+            <form class="col s12">
+                <div class="row">
+                    <div class="input-field col s8">
+                        <i class="material-icons prefix">group_add</i>
+                        <input id="icon_prefix" type="text" class="validate userInp3">
+                        <label for="icon_prefix" id="reset-input">Group Name</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col s12"></div>
+                    </div>
+                    <a href="#!" class="modal-action modal-close waves-effect waves-light btn" id="add-created-group">Create</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="new-discussion-modal" class="modal">
+        <div class="modal-content">
+            <h4>Creat a Discussion</h4>
+            <form class="col s12">
+                <div class="row">
+                    <div class="input-field col s8">
+                        <i class="material-icons prefix">chat</i>
+                        <input id="icon_prefix" type="text" class="validate userInp4">
+                        <label for="icon_prefix" id="reset-input">Discussion Name</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col s12"></div>
+                    </div>
+                    <a href="#!" class="modal-action modal-close waves-effect waves-light btn" id="add-created-discussion">Create</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <div id="groups-modal" class="modal">
         <div class="modal-content">
             <h4>Join Groups</h4>
             <form class="col s12">
                 <div class="row">
+                    <div id="groups">
+                        <!-- users groups are populated here -->
+                    </div>
+                    <br>
                     <div id="groups"></div>
                     <div class="chips chips-autocomplete"></div>
                 </div>
@@ -62,8 +124,8 @@
                     <div class="row">
                         <div class="col s12"></div>
                     </div>
-                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn">Close</a>
-                    <a href="#!" class="waves-effect waves-green btn" id="add-user">Join</a>
+                    <a href="#!" class="modal-action modal-close waves-effect waves-light btn">Close</a>
+                    <a href="#!" class="waves-effect waves-light btn" id="add-groups">Join</a>
                 </div>
             </form>
         </div>
@@ -75,8 +137,8 @@
             <form class="col s12">
                 <div class="row">
                     <div id="members">
+                        <!-- group members are populated here -->
                     </div>
-                    <!-- group members are populated here -->
                     <br>
                     <div class="input-field col s12">
                         <i class="material-icons prefix">account_circle</i>
@@ -88,8 +150,8 @@
                     <div class="row">
                         <div class="col s12"></div>
                     </div>
-                    <a href="#!" class="modal-action modal-close waves-effect btn">Close</a>
-                    <a href="#!" class="waves-effect waves-green btn" id="add-user">Add</a>
+                    <a href="#!" class="modal-action modal-close waves-effect waves-light btn">Close</a>
+                    <a href="#!" class="wwaves-effect waves-light btn" id="add-user">Add</a>
                 </div>
             </form>
         </div>
@@ -99,6 +161,7 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
     <script type="text/javascript" src="js/groups.js"></script>
+    <script type="text/javascript" src="js/discussion.js"></script>
 
 
 </body>

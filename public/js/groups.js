@@ -1,62 +1,126 @@
 $(document).ready(function () {
 
-    // console.log(location.origin)
-    // console.log(location.pathname)
-
     $('.modal').modal();
     $('.collapsible').collapsible();
 
-    showGroups();
+    //***** Change this to be updated for active user
+    var currentUserID = 1
+    //var firebaseId = firebase code;
+    //$.get(mysql user id from firebase id)
 
-    function showGroups() {
-        //***** Change this to be updated for active user
-        var currentUserID = 1
-        var queryUrl = "/api/users/" + currentUserID + "/groups"
+    getGroups();
+
+    var usersGroups;
+
+    function getGroups() {
+
+        //var queryUrl = "/api/users/" + currentUserID + "/groups"
+        var queryUrl = "/api/users/" + currentUserID + "/groups/discussions"
 
         $.get(queryUrl, function (data) {
-            for (var i = 0; i < data.length; i++) {
-                /*                 var newRow = $("<tr>");
-                                newRow.append("<td>" + data[i].name + "</td>");
-                                newRow.addClass("group")
-                                //newRow.attr("value", data[i].name);
-                                newRow.attr("data-id", data[i].id);
-                                $("#groupList").append(newRow); */
+            usersGroups = data;
+            displayGroups(data);
+        })
+    };
 
-                var newItem = $("<li>");
+    function displayGroups(data) {
+        console.log(data);
+        for (var i = 0; i < data.length; i++) {
+            console.log(data[i].name);
 
-                var itemHeader = $("<div>");
-                itemHeader.addClass("collapsible-header");
-                itemHeader.html(data[i].name)
+            var newItem = $("<li>");
 
-                var itemBody = $("<div>");
-                itemBody.addClass("collapsible-body");
+            var itemHeader = $("<div>");
+            itemHeader.addClass("collapsible-header");
+            itemHeader.html(data[i].name)
 
-                var discButton = $("<a>");
-                discButton.addClass("waves-effect waves-light btn view-discussions");
-                //discButton.attr("data-id", "");
-                discButton.html("View Discussions");
+            var itemBody = $("<div>");
+            itemBody.addClass("collapsible-body");
 
-                var memberButton = $("<a>");
-                memberButton.addClass("waves-effect waves-light btn view-members");
-                memberButton.attr("group-id", data[i].id);
-                memberButton.attr("href", "#member-modal");
-                memberButton.html("View Members");
+            var discussionButton = $("<div>");
+            discussionButton.addClass("discussionBtnArea" + data[i].id);
+            data[i].Discussions.forEach(function (item) {
+                discussionButton.append($("<a class='waves-effect waves-light btn modal-trigger disc-btn blue' href='#chat' data-key=chat" + item.id + ">" + item.name + "</a>"));
+                itemBody.append(discussionButton);
+            });
 
-                itemBody.append(discButton, memberButton);
+            var htmlBreak = $("<br>");
+            itemBody.append(htmlBreak);
 
-                newItem.append(itemHeader, itemBody);
-                $("#groupList").append(newItem);
+            var discButton = $("<a>");
+            discButton.addClass("waves-effect waves-light btn create-discussion");
+            discButton.attr("group-id", data[i].id);
+            discButton.html("Add Discussion");
+
+            var memberButton = $("<a>");
+            memberButton.addClass("waves-effect waves-light btn view-members");
+            memberButton.attr("group-id", data[i].id);
+            memberButton.attr("href", "#member-modal");
+            memberButton.html("Members");
+
+            itemBody.append(discButton, memberButton);
+
+            newItem.append(itemHeader, itemBody);
+            $("#groupList").append(newItem);
+
+            $('.collapsible').collapsible();
+            $('.modal').modal();
+        }
+    }
+
+    $('#create-group').on("click", function () {
+        $('.userInp3').val("");
+        $('#new-group-modal').modal('open');
+    });
+
+    $('#add-created-group').on("click", function () {
+        var nameInput = $('.userInp3').val().trim();
+
+        var newGroup = {
+            name: nameInput
+        }
+
+        $.post("/api/groups", newGroup, function (data) {
+            console.log(data);
+            var dataArray = [];
+            dataArray.push(data);
+            displayGroups(dataArray);
+            $('.collapsible').collapsible();
+        })
+    });
+
+    $(document).on("click", ".create-discussion", function () {
+        $('.userInp4').val("");
+        $('#new-discussion-modal').modal('open');
+        var id = $(this).attr("group-id");
+
+        addDiscussion(id);
+    });
+
+    function addDiscussion(id) {
+        $('#add-created-discussion').on("click", function () {
+            var nameInput = $('.userInp4').val().trim();
+
+
+            var newDiscussion = {
+                name: nameInput,
+            }
+
+            var queryUrl = "api/groups/" + id + "/discussions"
+
+            $.post(queryUrl, newDiscussion, function (data) {
+
+                $('.discussionBtnArea' + data.GroupId).append("<a class='waves-effect waves-light btn modal-trigger disc-btn blue' href='#chat' data-key=chat" + data.id + ">" + data.name + "</a>");
 
                 $('.collapsible').collapsible();
-                $('.modal').modal();
-            }
+            })
         });
     }
 
     var allGroupData;
     var allGroups = {};
 
-    $("#join-groups").on("click", function () {
+    $('#join-groups').on("click", function () {
         $('.userInp2').val("");
         $('#groups-modal').modal('open');
 
@@ -66,7 +130,14 @@ $(document).ready(function () {
             for (var i = 0; i < data.length; i++) {
                 allGroups[data[i].name] = "";
             }
-            console.log(allGroups);
+
+            for (var i = 0; i < usersGroups.length; i++) {
+                var newChip = $("<div>");
+                newChip.addClass("chip");
+                newChip.text(usersGroups[i].name);
+
+                $('#groups').append(newChip);
+            }
 
             $('.chips-autocomplete').material_chip({
                 autocompleteOptions: {
@@ -75,15 +146,53 @@ $(document).ready(function () {
                     minLength: 1
                 }
             });
-
-
-
         })
-
-
     });
 
+    $('#add-groups').on("click", function () {
 
+        var groupsToAdd = [];
+        $('.chips-autocomplete .chip').each(function (index, obj) {
+            var trimmedVal = $(this).text().replace(/close/g, '');
+            groupsToAdd.push(trimmedVal);
+            $(this).remove();
+        })
+
+        $('.chips-autocomplete').material_chip({
+            autocompleteOptions: {
+                data: allGroups,
+                limit: 20,
+                minLength: 1
+            }
+        });
+
+        var queryUrl = "/api/users/" + currentUserID + "/groups"
+
+        var groupIds = [];
+
+        groupsToAdd.forEach(function (groupName) {
+            var index = allGroupData.findIndex(x => x.name == groupName);
+            var groupID = allGroupData[index].id;
+            groupIds.push(groupID);
+        });
+
+        $.post(queryUrl, { Ids: groupIds }, function (data) {
+
+            for (var i = 0; i < groupsToAdd.length; i++) {
+
+                var newChip = $("<div>");
+                newChip.addClass("chip");
+                newChip.text(groupsToAdd[i]);
+
+                /*                 var check = $("<i>");
+                                check.addClass("material-icons close");
+                                check.text("check");
+                
+                                newChip.append(check); */
+                $('#groups').append(newChip);
+            }
+        })
+    });
 
     var allUserData;
     var allUsers = {};
@@ -136,7 +245,6 @@ $(document).ready(function () {
         })
     }
 
-
     $("#add-user").on("click", function () {
         var groupID = $('#members').attr("group-id");
         var queryUrl = "/api/groups/" + groupID + "/members";
@@ -156,8 +264,6 @@ $(document).ready(function () {
             console.log(data[0]);
 
             $('.userInp').val("");
-            //$('#members').empty();
-            //getMembers(groupID);
 
             var newChip = $("<div>");
             newChip.addClass("chip");

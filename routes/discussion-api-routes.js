@@ -21,24 +21,24 @@ module.exports = function(app){
 	// 		});
 	// })
 
-	// // Create new discussion in database
-	// app.post("/api/discussions", function(req, res){
-	// 	db.Discussion.create({
-	// 		chat_name: chatName,
-	// 		chat_firebase_id: firebaseId
-	// 	}).then(function(results){
-	// 		res.json(results);
-	// 	});
-	// });
+	// Create new discussion in database
+	app.post("/api/groups/:group/discussions", function(req, res){
+		db.Discussion.create({
+			name: req.body.name,
+			GroupId: req.params.group
+		}).then(function(results){
+			res.json(results)
+		});
+	});
 
-	// // Delete discussion in database whenever a group member deletes it (don't focus on this too much. make others work first.)
-	// app.delete("/api/discussions/:id", function(req, res){
-	// 	db.Discussion.destroy({
- //      where: {
- //        id: req.params.id
- //      }
-	// 	}).then(function(results){
-	// 		res.json(results);
-	// 	});
-	// });
+	// Delete discussion in database whenever a group member deletes it (don't focus on this too much. make others work first.)
+	app.delete("/api/discussions/:id", function(req, res){
+		db.Discussion.destroy({
+      where: {
+        id: req.params.id
+      }
+		}).then(function(results){
+			res.json(results);
+		});
+	});
 }
