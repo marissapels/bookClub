@@ -12,7 +12,8 @@ module.exports = function(app){
 		db.Library.create({
 			title: req.body.title,
 			author: req.body.author,
-			comments: req.body.comments
+			comments: req.body.comments,
+			firebase: req.body.firebase
 		}).then(function(results){
 			res.json(results);
 		});
