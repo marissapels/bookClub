@@ -10,8 +10,6 @@ $(document).ready(function () {
 
     getGroups();
 
-    var usersGroups;
-
     function getGroups() {
 
         var queryUrl = "/api/users/" + currentUserID + "/groups/discussions"
@@ -22,7 +20,6 @@ $(document).ready(function () {
         })
     };
 
-    var areDiscussions;
 
     function displayGroups(data) {
         console.log(data);
@@ -83,7 +80,8 @@ $(document).ready(function () {
         var nameInput = $('.userInp3').val().trim();
 
         var newGroup = {
-            name: nameInput
+            name: nameInput,
+            UserId: currentUserID
         }
 
         $.post("/api/groups", newGroup, function (data) {

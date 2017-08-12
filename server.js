@@ -16,9 +16,9 @@ var PORT = process.env.PORT || 8080;
 var db = require("./models");
 
 // Requiring data
-// var userData = require("./public/data/data-user.js");
-// var groupData = require("./public/data/data-group.js");
-// var discussionData = require("./public/data/data-discussion.js");
+/* var userData = require("./public/data/data-user.js");
+var groupData = require("./public/data/data-group.js");
+var discussionData = require("./public/data/data-discussion.js"); */
 
 // Sets up the Express app to handle data parsing
 app.use(bodyParser.json());
@@ -41,15 +41,15 @@ require("./routes/discussion-api-routes.js")(app);
 // =============================================================
 db.sequelize.sync({ force: true }).then(function () {
 
-  // db.User.bulkCreate(userData);
+/*   db.User.bulkCreate(userData);
 
-  // db.Group.bulkCreate(groupData);
+  db.Group.bulkCreate(groupData);
 
-  // db.User.findById(1).then(function (user) {
-  //   user.addGroup([1, 2, 3, 4]);
-  // });
+  db.User.findById(1).then(function (user) {
+  user.addGroup([1, 2, 3, 4]);
+  });
 
-  // db.Discussion.bulkCreate(discussionData);
+  db.Discussion.bulkCreate(discussionData); */
 
   app.listen(PORT, function () {
     console.log("App listening on PORT " + PORT);
