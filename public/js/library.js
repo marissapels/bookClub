@@ -23,7 +23,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     var providerData = user.providerData;
     loggedIn = true;
   } else {
-  	logginIn=false;
+  	loggedIn=false;
   }
 });
 
@@ -117,7 +117,7 @@ $("#logout").on("click", function(){
 // *************************************************************************
 
 
-	//Materialize javascript code for modal
+//Materialize javascript code for modal
 	$('.modal').modal();
 
 	//When modal button is clicked, it clears out search contents from previous search
@@ -142,6 +142,11 @@ $("#logout").on("click", function(){
 
 		showBooks();
 	});
+
+  $(document).on("click", "#viewBooks", function(){
+    event.preventDefault();
+    showBooks();
+  });
 
 	//function to add book to Library API
 	function addBook(data){
