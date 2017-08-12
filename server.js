@@ -9,6 +9,8 @@ var bodyParser = require("body-parser");
 var passport = require("passport");
 var morgan = require("morgan");
 var cookieParser = require('cookie-parser')
+var flash    = require('connect-flash');
+var session      = require('express-session');
 //Sets up Passport
 
 // Sets up the Express App
