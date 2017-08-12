@@ -1,10 +1,7 @@
 $(document).ready(function () {
 
-<<<<<<< Updated upstream
-=======
     // //Initialize Firebase
 var loggedIn = false;
-
 
 var config = {
   apiKey: "AIzaSyBUVyIW2d33WHzArLsdPx3X-X39qV-SZLY",
@@ -51,7 +48,7 @@ $("#logout").on("click", function(){
 /*************Firebase Click Events*************/
 
     $('.modal').modal();
->>>>>>> Stashed changes
+
     $('.collapsible').collapsible();
 
     showGroups();
