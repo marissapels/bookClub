@@ -11,7 +11,7 @@
   <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 
-<body class="library">
+<body class="library load">
 <!--   <header>
     <h1>Dewey</h1>
   </header> -->
@@ -20,10 +20,9 @@
   <!-- Navigation Bar -->
   <nav class="z-depth-0">
     <div class="nav-wrapper">
-    <a href="library.html" class="brand-logo"><h1>Dewey</h1></a>
     <a href="library.html" class="brand-logo"><h1>Dewey.</h1></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="library.html">My Library</a></li>
+        <li><a href="library.html" id="libraryPage">My Library</a></li>
         <li><a href="groups.html">Groups</a></li>
         <li><a href="discussions.html">Discussions</a></li>
         <li><a href="discover.html">Discover</a></li>
@@ -39,6 +38,7 @@
         <div class="bookList">
           <h2>My Bookshelf</h2>
           
+          <a class="btn" id="viewBooks">View Books</a>
           <!-- Modal Trigger -->
           <a class="btn modal-trigger" href="#modal1" id="modalButton">Add a Book</a>
 
@@ -84,6 +84,5 @@
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
   <script type="text/javascript" src="js/library.js"></script>
-
 </body>
 </html>
