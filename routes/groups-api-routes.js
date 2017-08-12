@@ -69,10 +69,13 @@ module.exports = function (app) {
 
     app.post("/api/groups", function (req, res) {
         db.Group.create({
-            name: req.body.name
+            name: req.body.name,
         })
             .then(function (result) {
                 res.json(result);
+                db.User.findById(req.body.UserId).then(function (user) {
+                    user.addGroup(result.id)
+                })
             })
     });
 

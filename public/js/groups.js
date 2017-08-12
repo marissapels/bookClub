@@ -57,8 +57,6 @@ $("#logout").on("click", function(){
 
     getGroups();
 
-    var usersGroups;
-
     function getGroups() {
 
         var queryUrl = "/api/users/" + currentUserID + "/groups/discussions"
@@ -69,7 +67,6 @@ $("#logout").on("click", function(){
         })
     };
 
-    var areDiscussions;
 
     function displayGroups(data) {
         console.log(data);
@@ -130,7 +127,8 @@ $("#logout").on("click", function(){
         var nameInput = $('.userInp3').val().trim();
 
         var newGroup = {
-            name: nameInput
+            name: nameInput,
+            UserId: currentUserID
         }
 
         $.post("/api/groups", newGroup, function (data) {
