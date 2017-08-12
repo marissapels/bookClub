@@ -179,10 +179,10 @@ $("#logout").on("click", function(){
 		$("#chooseTitle, #chooseComments, #chooseAuthor, #chooseRate, #chooseSummary").html("");
 		$("#chooseImage").attr("src","");
 		var clickedTitle = $(this).attr("value");
-		// var clickedAuthor = $(this).attr("data-author");
-		console.log(clickedTitle);
+		var currentUser = firebase.auth().currentUser.uid;
+    var query = "/api/library/" + currentUser;
 		googleBook(clickedTitle);
-		$.get("/api/library", function(data){
+		$.get(query, function(data){
 			for (var i = 0; i<data.length; i++){
 				if (clickedTitle===data[i].title){
 					$("#chooseTitle").html("Title: "+data[i].title);
