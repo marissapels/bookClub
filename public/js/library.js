@@ -167,6 +167,7 @@ $("#logout").on("click", function(){
 				newRow.addClass("book")
 				newRow.attr("value", data[i].title);
 				newRow.attr("data-author", data[i].author);
+        
 				$("#tableLibrary").append(newRow);
 			}
 		});
@@ -180,9 +181,10 @@ $("#logout").on("click", function(){
 		$("#chooseImage").attr("src","");
 		var clickedTitle = $(this).attr("value");
 		// var clickedAuthor = $(this).attr("data-author");
-		console.log(clickedTitle);
+    var currentUser = firebase.auth().currentUser.uid;
+    var query = "/api/library/" + currentUser;
 		googleBook(clickedTitle);
-		$.get("/api/library", function(data){
+		$.get(query, function(data){
 			for (var i = 0; i<data.length; i++){
 				if (clickedTitle===data[i].title){
 					$("#chooseTitle").html("Title: "+data[i].title);
