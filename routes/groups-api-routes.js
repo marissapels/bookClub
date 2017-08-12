@@ -26,6 +26,17 @@ module.exports = function (app) {
             })
      */
 
+    app.get("api/firebase/:id", function (req, res) {
+        db.User.findOne({
+            where: {
+                firebase: req.params.id
+            }
+        })
+        .then (function (user) {
+            res.json(user);
+        })
+    })
+
     app.get("/api/users/:user/groups/discussions", function (req, res) {
 
         db.User.findById(req.params.user)
