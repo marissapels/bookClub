@@ -1,14 +1,14 @@
 'use strict';
 module.exports = function (sequelize, DataTypes) {
     var User = sequelize.define('User', {
-        username: {
+        username : {
             type: DataTypes.STRING,
             allowNull: false
         },
-        firebase : {
+        email : {
             type: DataTypes.STRING,
         },
-        photoRef: {
+        password : {
             type: DataTypes.STRING,
 
         }
