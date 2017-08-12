@@ -1,5 +1,57 @@
 $(document).ready(function () {
 
+<<<<<<< Updated upstream
+=======
+    // //Initialize Firebase
+var loggedIn = false;
+
+
+var config = {
+  apiKey: "AIzaSyBUVyIW2d33WHzArLsdPx3X-X39qV-SZLY",
+  authDomain: "bookclub-ed08b.firebaseapp.com",
+  databaseURL: "https://bookclub-ed08b.firebaseio.com",
+  projectId: "bookclub-ed08b",
+  storageBucket: "bookclub-ed08b.appspot.com",
+  messagingSenderId: "874403788158"
+};
+firebase.initializeApp(config);
+
+var database = firebase.database();
+
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    // User is signed in.
+    var displayName = user.displayName;
+    var email = user.email;
+    var uid = user.uid;
+    var providerData = user.providerData;
+    loggedIn = true;
+  } else {
+    loggedIn=false;
+  }
+});
+
+var dataMethods = {
+  //Function that logs out a user that is logged in
+  logOut: function() {
+      firebase.auth().signOut().then(function() {
+      // Sign-out successful.
+      }).catch(function(error) {
+      // An error happened.
+          console.log(error);
+      });
+  }
+}
+
+//Logout
+$("#logout").on("click", function(){
+    dataMethods.logOut();
+});
+
+/*************Firebase Click Events*************/
+
+    $('.modal').modal();
+>>>>>>> Stashed changes
     $('.collapsible').collapsible();
 
     showGroups();
