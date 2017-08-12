@@ -22,7 +22,7 @@ module.exports = function(app){
 	// })
 
 	// Create new discussion in database
-	app.post("/api/:group/discussions", function(req, res){
+	app.post("/api/groups/:group/discussions", function(req, res){
 		db.Discussion.create({
 			name: req.body.name,
 			GroupId: req.params.group
