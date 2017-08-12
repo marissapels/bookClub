@@ -6,6 +6,10 @@
 // =============================================================
 var express = require("express");
 var bodyParser = require("body-parser");
+var passport = require("passport");
+var morgan = require("morgan");
+var cookieParser = require('cookie-parser')
+//Sets up Passport
 
 // Sets up the Express App
 // =============================================================
@@ -25,17 +29,25 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
+app.use(morgan('dev'));
 
 // Static directory
 app.use(express.static("public"));
 
-// Routes
-// =============================================================
+// required for passport
+app.use(session({ secret: 'dewey' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
+
+
+// Routes ======================
 require("./routes/html-routes.js")(app);
 require("./routes/library-api-routes.js")(app);
 require("./routes/groups-api-routes.js")(app);
 require("./routes/user-api-routes.js")(app);
 require("./routes/discussion-api-routes.js")(app);
+require("./routes/passport-routes.js")(app, passport);
 
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
