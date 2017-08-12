@@ -21,6 +21,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     var email = user.email;
     var uid = user.uid;
     var providerData = user.providerData;
+    localStorage.setItem("firebaseUID", uid);
     loggedIn = true;
   } else {
   	loggedIn=false;
