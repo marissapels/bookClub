@@ -14,7 +14,6 @@ $(document).ready(function () {
 
     function getGroups() {
 
-        //var queryUrl = "/api/users/" + currentUserID + "/groups"
         var queryUrl = "/api/users/" + currentUserID + "/groups/discussions"
 
         $.get(queryUrl, function (data) {
@@ -22,6 +21,8 @@ $(document).ready(function () {
             displayGroups(data);
         })
     };
+
+    var areDiscussions;
 
     function displayGroups(data) {
         console.log(data);
@@ -39,10 +40,15 @@ $(document).ready(function () {
 
             var discussionButton = $("<div>");
             discussionButton.addClass("discussionBtnArea" + data[i].id);
-            data[i].Discussions.forEach(function (item) {
-                discussionButton.append($("<a class='waves-effect waves-light btn modal-trigger disc-btn blue' href='#chat' data-key=chat" + item.id + ">" + item.name + "</a>"));
+
+            if (data[i].Discussions) {
+                data[i].Discussions.forEach(function (item) {
+                    discussionButton.append($("<a class='waves-effect waves-light btn modal-trigger disc-btn blue' href='#chat' data-key=chat" + item.id + ">" + item.name + "</a>"));
+                    itemBody.append(discussionButton);
+                });
+            } else {
                 itemBody.append(discussionButton);
-            });
+            }
 
             var htmlBreak = $("<br>");
             itemBody.append(htmlBreak);
@@ -93,29 +99,27 @@ $(document).ready(function () {
         $('.userInp4').val("");
         $('#new-discussion-modal').modal('open');
         var id = $(this).attr("group-id");
-
-        addDiscussion(id);
+        $('#add-created-discussion').attr("group-id", id);
     });
 
-    function addDiscussion(id) {
-        $('#add-created-discussion').on("click", function () {
-            var nameInput = $('.userInp4').val().trim();
 
+    $('#add-created-discussion').on("click", function () {
+        var nameInput = $('.userInp4').val().trim();
+        var id = $(this).attr("group-id");
 
-            var newDiscussion = {
-                name: nameInput,
-            }
+        var newDiscussion = {
+            name: nameInput,
+        }
 
-            var queryUrl = "api/groups/" + id + "/discussions"
+        var queryUrl = "api/groups/" + id + "/discussions"
 
-            $.post(queryUrl, newDiscussion, function (data) {
+        $.post(queryUrl, newDiscussion, function (data) {
 
-                $('.discussionBtnArea' + data.GroupId).append("<a class='waves-effect waves-light btn modal-trigger disc-btn blue' href='#chat' data-key=chat" + data.id + ">" + data.name + "</a>");
+            $('.discussionBtnArea' + data.GroupId).append("<a class='waves-effect waves-light btn modal-trigger disc-btn blue' href='#chat' data-key=chat" + data.id + ">" + data.name + "</a>");
 
-                $('.collapsible').collapsible();
-            })
-        });
-    }
+            $('.collapsible').collapsible();
+        })
+    });
 
     var allGroupData;
     var allGroups = {};
