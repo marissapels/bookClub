@@ -26,6 +26,7 @@ module.exports = function (app) {
         res.render(path.join(__dirname, "../public/library.html"), {
             user : req.user // get the user out of session and pass to template
         });
+        console.log("user");
     });
 
   app.get("/groups", function (req, res) {

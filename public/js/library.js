@@ -12,14 +12,17 @@ $("#submitLogin").on("click", function() {
 });
 //Sign-up
 $("#submitNewUser").on("click", function() {
+    var user = {
+      
+    }
     var email = $("#email2").val();
     var pwd = $("#password2").val();
     var pwdCheck = $("#passwordCheck").val();
-    if(pwd === pwdCheck) {
-        // dataMethods.signUp(email, pwd);
-    } else {
-        $("#sign-up-err").text("Your passwords do not match. Please correct and submit again.")
-    }
+    // if(pwd === pwdCheck) {
+    //     // dataMethods.signUp(email, pwd);
+    // } else {
+    //     $("#sign-up-err").text("Your passwords do not match. Please correct and submit again.")
+    // }
 });
 
 function createUser(data){
