@@ -21,6 +21,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     var email = user.email;
     var uid = user.uid;
     var providerData = user.providerData;
+    localStorage.setItem("firebaseUID", uid);
     loggedIn = true;
   } else {
   	loggedIn=false;
@@ -181,7 +182,8 @@ $("#logout").on("click", function(){
 		$("#chooseImage").attr("src","");
 		var clickedTitle = $(this).attr("value");
 		// var clickedAuthor = $(this).attr("data-author");
-    var currentUser = firebase.auth().currentUser.uid;
+
+		var currentUser = firebase.auth().currentUser.uid;
     var query = "/api/library/" + currentUser;
 		googleBook(clickedTitle);
 		$.get(query, function(data){

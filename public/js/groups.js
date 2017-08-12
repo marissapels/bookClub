@@ -1,17 +1,15 @@
 $(document).ready(function () {
 
+var firebaseId = localStorage.getItem("firebaseUID");
+console.log(firebaseId)
+$.get("/api/firebase/" + firebaseId, function(data){
+    var currentUserID = data[0].id;
+    console.log(currentUserID)
+    getGroups(currentUserID);
+})
+
     // //Initialize Firebase
 var loggedIn = false;
-
-var config = {
-  apiKey: "AIzaSyBUVyIW2d33WHzArLsdPx3X-X39qV-SZLY",
-  authDomain: "bookclub-ed08b.firebaseapp.com",
-  databaseURL: "https://bookclub-ed08b.firebaseio.com",
-  projectId: "bookclub-ed08b",
-  storageBucket: "bookclub-ed08b.appspot.com",
-  messagingSenderId: "874403788158"
-};
-firebase.initializeApp(config);
 
 var database = firebase.database();
 
@@ -51,16 +49,12 @@ $("#logout").on("click", function(){
     $('.collapsible').collapsible();
 
     //***** Change this to be updated for active user
-    var currentUserID = 1
     //var firebaseId = firebase code;
     //$.get(mysql user id from firebase id)
 
-    getGroups();
+    // getGroups();
 
-    var usersGroups;
-
-    function getGroups() {
-
+    function getGroups(currentUserID) {
         var queryUrl = "/api/users/" + currentUserID + "/groups/discussions"
 
         $.get(queryUrl, function (data) {
@@ -69,7 +63,6 @@ $("#logout").on("click", function(){
         })
     };
 
-    var areDiscussions;
 
     function displayGroups(data) {
         console.log(data);
@@ -127,18 +120,22 @@ $("#logout").on("click", function(){
     });
 
     $('#add-created-group').on("click", function () {
-        var nameInput = $('.userInp3').val().trim();
+        $.get("/api/firebase/" + firebaseId, function(data){
+            var currentUserID = data[0].id;
+            var nameInput = $('.userInp3').val().trim();
 
-        var newGroup = {
-            name: nameInput
-        }
+            var newGroup = {
+                name: nameInput,
+                UserId: currentUserID
+            }
 
-        $.post("/api/groups", newGroup, function (data) {
-            console.log(data);
-            var dataArray = [];
-            dataArray.push(data);
-            displayGroups(dataArray);
-            $('.collapsible').collapsible();
+            $.post("/api/groups", newGroup, function (data) {
+                console.log(data);
+                var dataArray = [];
+                dataArray.push(data);
+                displayGroups(dataArray);
+                $('.collapsible').collapsible();
+            })
         })
     });
 

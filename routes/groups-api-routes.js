@@ -26,6 +26,16 @@ module.exports = function (app) {
             })
      */
 
+    app.get("/api/firebase/:id", function(req, res){
+        db.User.findAll({
+            where: {
+                firebase: req.params.id
+            }
+        }).then(function(data){
+            res.json(data)
+        })
+    })
+
     app.get("/api/users/:user/groups/discussions", function (req, res) {
 
         db.User.findById(req.params.user)
@@ -69,10 +79,13 @@ module.exports = function (app) {
 
     app.post("/api/groups", function (req, res) {
         db.Group.create({
-            name: req.body.name
+            name: req.body.name,
         })
             .then(function (result) {
                 res.json(result);
+                db.User.findById(req.body.UserId).then(function (user) {
+                    user.addGroup(result.id)
+                })
             })
     });
 

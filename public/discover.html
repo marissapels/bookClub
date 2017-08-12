@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
-<body class="library">
+<body class="discover">
 <!--   <header>
     <h1>Dewey</h1>
   </header> -->
@@ -30,37 +30,9 @@
     </div>
   </nav>
    
-   <!-- Container to create and show books -->
-    <!-- <div class="container">
-    <div class="row">
-      <div class="col s4">
-        <div class="bookList">
-          <h2>My Bookshelf</h2>  -->
-          
-          <!-- Modal Trigger -->
-       <!-- <a class="btn modal-trigger" href="#modal1" id="modalButton">Add a Book</a>-->
-
-          <!-- Append Book Info -->
-       <!--    <table id="tableLibrary"></table>
-        </div>
-      </div>
-      <div class="col s8">
-        <div class="bookInfo">
-          <h2>Book Report</h2> 
-          <p id="chooseTitle"></p>
-          <p id="chooseAuthor"></p>
-          <p id="chooseRate"></p>
-          <p id="chooseSummary"></p>
-          <p id="chooseComments"></p>
-          <img src="" id="chooseImage">
-        </div>
-      </div>
-    </div>
-  </div>  -->
-    
 <!-- Cards Container -->
 
-<div class="container">
+<div class="container-cards">
  
   <div class="row">
     <div class="col s10 m5">
@@ -72,7 +44,7 @@
         </div>
         <div class="card-content">
           <p>Find new books that my interest you here.</p>  
-          <div class="search-wrapper card">
+          <div class="search-wrapper-card">
               <input id="search"> 
               <a class="btn modal-trigger" href="#modal1" id="findNewBk"><i class="material-icons left">search</i>find</a>
               <div class="search-results"></div>
@@ -89,7 +61,7 @@
         </div>
         <div class="card-content">
           <p>Find books from your favorite author here.</p>
-            <div class="search-wrapper card">
+            <div class="search-wrapper-card">
             <input id="search"> 
             <a class="waves-effect waves-light btn" id="findAuthBk"><i class="material-icons left">search</i>find</a>
             <div class="search-results"></div>
@@ -110,7 +82,7 @@
         </div>
         <div class="card-content">
           <p>Find a list of top selling books here.</p>
-              <div class="search-wrapper card">
+              <div class="search-wrapper-card">
               <input id="search"> 
               <a class="waves-effect waves-light btn" id="findBestList"><i class="material-icons left">search</i>find</a>
               <div class="search-results"></div>
@@ -127,7 +99,7 @@
         </div>
         <div class="card-content">
           <p>Find recently reviewed books here.</p>
-              <div class="search-wrapper card">
+              <div class="search-wrapper-card">
               <input id="search"> 
               <a class="waves-effect waves-light btn" id="findReviewed"><i class="material-icons left">search</i>find</a>
               <div class="search-results"></div>
@@ -138,9 +110,7 @@
 
   </div>
 
-       <!-- Modal Trigger -->
-  <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
-
+   
   <!-- Modal Structure -->
   <div id="modal1" class="modal modal-fixed-footer">
     <div class="modal-content">
@@ -150,51 +120,51 @@
 
 
           <image src="images/yuna.jpg" alt class="square" id=bookOne>
-          <span class="title"></span>
-          <p id=bookInfo>
+          <span class="title" id="ttl"></span>
+          <p id=bookOneInfo>
 
           </p>
           </li>
 
-                  <li class="collection-item avatar">
-          <image src="images/yuna.jpg" alt class="square" id=booktwo>
+          <li class="collection-item avatar">
+          <image src="images/yuna.jpg" alt class="square" id=bookTwo>
           <span class="title"></span>
-          <p id=bookInfo>
+          <p id=bookTwoInfo>
 
           </p>
           </li>
                 <li class="collection-item avatar">
           <image src="images/yuna.jpg" alt class="square" id=bookThree>
           <span class="title"></span>
-          <p id=bookInfo>
+          <p id=bookThreeInfo>
 
           </p>
           </li>
                 <li class="collection-item avatar">
           <image src="images/yuna.jpg" alt class="square" id=bookFour>
           <span class="title"></span>
-          <p id=bookInfo>
+          <p id=bookFourInfo>
 
           </p>
           </li>
                 <li class="collection-item avatar">
           <image src="images/yuna.jpg" alt class="square" id=bookFive>
           <span class="title"></span>
-          <p id=bookInfo>
+          <p id=bookFiveInfo>
 
           </p>
           </li>
                 <li class="collection-item avatar">
           <image src="images/yuna.jpg" alt class="square" id=bookSix>
           <span class="title"></span>
-          <p id=bookInfo>
+          <p id=bookSixInfo>
 
           </p>
           </li>
                 <li class="collection-item avatar">
           <image src="images/yuna.jpg" alt class="square" id=bookSeven>
           <span class="title"></span>
-          <p id=bookInfo>
+          <p id=bookSixInfo>
 
           </p>
           </li>
@@ -212,7 +182,8 @@
 
           </p>
           </li>
-                <li class="collection-item avatar">
+          
+          <li class="collection-item avatar">
           <image src="images/yuna.jpg" alt class="square" id=bookTen>
           <span class="title"></span>
           <p id=bookInfo>
