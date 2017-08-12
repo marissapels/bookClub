@@ -1,4 +1,4 @@
-/* var discussionData = [
+ var discussionData = [
      {
          "name": "Discussion 1",
          "GroupId": "1"
@@ -29,4 +29,4 @@
  module.exports = discussionData;
 
 
- */
+ 

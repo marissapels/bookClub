@@ -1,4 +1,4 @@
-/*   var userData = [
+   var userData = [
      {
          "userName": "Akia",
          "photoRef": "../img/akia.png"
@@ -18,4 +18,23 @@
 
   ];
 
-module.exports = userData; */
+module.exports = userData; 
+/* 
+var userData = [
+    {
+        "userName": "Akia",
+        "photoRef": "../img/akia/png"
+    },
+        {
+        "userName": "Marissa",
+        "photoRef": "../img/marissa/png"
+    },
+        {
+        "userName": "Whitney",
+        "photoRef": "../img/whitney/png"
+    },
+        {
+        "userName": "Akia",
+        "photoRef": "../img/akia/png"
+    }
+] */

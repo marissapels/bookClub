@@ -1,4 +1,4 @@
-/* 
+ 
 var groupData = [
     {
         "name": "Harry Potter"
@@ -15,4 +15,4 @@ var groupData = [
 
 ];
 
-module.exports = groupData; */
+module.exports = groupData; 

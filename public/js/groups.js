@@ -1,49 +1,49 @@
 $(document).ready(function () {
 
-var firebaseId = localStorage.getItem("firebaseUID");
-console.log(firebaseId)
-$.get("/api/firebase/" + firebaseId, function(data){
-    var currentUserID = data[0].id;
-    console.log(currentUserID)
-    getGroups(currentUserID);
-})
+    /* var firebaseId = localStorage.getItem("firebaseUID");
+    console.log(firebaseId)
+    $.get("/api/firebase/" + firebaseId, function(data){
+        var currentUserID = data[0].id;
+        console.log(currentUserID)
+        getGroups(currentUserID);
+    })
+    
+        // //Initialize Firebase
+    var loggedIn = false;
+    
+    var database = firebase.database();
+    
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        // User is signed in.
+        var displayName = user.displayName;
+        var email = user.email;
+        var uid = user.uid;
+        var providerData = user.providerData;
+        loggedIn = true;
+      } else {
+        loggedIn=false;
+      }
+    });
+    
+    var dataMethods = {
+      //Function that logs out a user that is logged in
+      logOut: function() {
+          firebase.auth().signOut().then(function() {
+          // Sign-out successful.
+          }).catch(function(error) {
+          // An error happened.
+              console.log(error);
+          });
+      }
+    }
+    
+    //Logout
+    $("#logout").on("click", function(){
+        dataMethods.logOut();
+    }); */
 
-    // //Initialize Firebase
-var loggedIn = false;
-
-var database = firebase.database();
-
-firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    // User is signed in.
-    var displayName = user.displayName;
-    var email = user.email;
-    var uid = user.uid;
-    var providerData = user.providerData;
-    loggedIn = true;
-  } else {
-    loggedIn=false;
-  }
-});
-
-var dataMethods = {
-  //Function that logs out a user that is logged in
-  logOut: function() {
-      firebase.auth().signOut().then(function() {
-      // Sign-out successful.
-      }).catch(function(error) {
-      // An error happened.
-          console.log(error);
-      });
-  }
-}
-
-//Logout
-$("#logout").on("click", function(){
-    dataMethods.logOut();
-});
-
-/*************Firebase Click Events*************/
+    /*************Firebase Click Events*************/
 
     $('.modal').modal();
     $('.collapsible').collapsible();
@@ -54,7 +54,13 @@ $("#logout").on("click", function(){
 
     // getGroups();
 
-    function getGroups(currentUserID) {
+    //var currentUserID = data[0].id;
+    // console.log(currentUserID)
+    var currentUserID = 1;
+
+    getGroups();
+
+    function getGroups() {
         var queryUrl = "/api/users/" + currentUserID + "/groups/discussions"
 
         $.get(queryUrl, function (data) {
@@ -120,8 +126,8 @@ $("#logout").on("click", function(){
     });
 
     $('#add-created-group').on("click", function () {
-        $.get("/api/firebase/" + firebaseId, function(data){
-            var currentUserID = data[0].id;
+        //$.get("/api/firebase/" + firebaseId, function (data) {
+           // var currentUserID = data[0].id;
             var nameInput = $('.userInp3').val().trim();
 
             var newGroup = {
@@ -136,7 +142,7 @@ $("#logout").on("click", function(){
                 displayGroups(dataArray);
                 $('.collapsible').collapsible();
             })
-        })
+       // })
     });
 
     $(document).on("click", ".create-discussion", function () {
