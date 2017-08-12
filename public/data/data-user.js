@@ -29,6 +29,10 @@
 //     {
 //         "userName": "Andrew"
 //     }
+<<<<<<< Updated upstream
+=======
+    
+>>>>>>> Stashed changes
 // ];
 
 // module.exports = userData;
