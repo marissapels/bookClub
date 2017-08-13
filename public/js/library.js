@@ -12,10 +12,11 @@ $("#submitLogin").on("click", function() {
 });
 //Sign-up
 $("#submitNewUser").on("click", function() {
+	event.preventDefault();
     var newUser = {
+    	secret: $("#secret").val(),
       username: $("#username").val(),
-      email: $("#email").val(),
-      password: $("password").val()
+      email: $("#email").val()
     };
     console.log(newUser.username + " " + newUser.email + " " + newUser.password);
     createUser(newUser);
