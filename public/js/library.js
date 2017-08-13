@@ -12,12 +12,16 @@ $("#submitLogin").on("click", function() {
 });
 //Sign-up
 $("#submitNewUser").on("click", function() {
-    var user = {
-      
-    }
-    var email = $("#email2").val();
-    var pwd = $("#password2").val();
-    var pwdCheck = $("#passwordCheck").val();
+    var newUser = {
+      username: $("#username").val(),
+      email: $("#newEmail").val(),
+      password: $("#newPassword").val()
+    };
+    console.log(newUser.username + " " + newUser.email + " " + newUser.password);
+    createUser(newUser);
+    // var email = $("#email2").val();
+    // var pwd = $("#password2").val();
+    // var pwdCheck = $("#passwordCheck").val();
     // if(pwd === pwdCheck) {
     //     // dataMethods.signUp(email, pwd);
     // } else {
@@ -26,9 +30,9 @@ $("#submitNewUser").on("click", function() {
 });
 
 function createUser(data){
-	$.post("/api/users",data)
-			.done(function(){		
-      console.log("created user: " + data);		
+	$.post("/api/users", data)
+			.done(function(results){		
+      console.log("created user: " + results);		
 	});
 };	
 

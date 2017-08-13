@@ -11,7 +11,8 @@ module.exports = function(app){
 	app.post("/api/users", function(req,res){
 		db.User.create({
 			username: req.body.username,
-			firebase: req.body.firebase
+			email: req.body.email,
+			password: req.body.password
 		}).then(function(results){
 			res.json(results);
 		});
