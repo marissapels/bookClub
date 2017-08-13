@@ -14,8 +14,8 @@ $("#submitLogin").on("click", function() {
 $("#submitNewUser").on("click", function() {
     var newUser = {
       username: $("#username").val(),
-      email: $("#newEmail").val(),
-      password: $("#newPassword").val()
+      email: $("#email").val(),
+      password: $("password").val()
     };
     console.log(newUser.username + " " + newUser.email + " " + newUser.password);
     createUser(newUser);
@@ -30,7 +30,7 @@ $("#submitNewUser").on("click", function() {
 });
 
 function createUser(data){
-	$.post("/api/users", data)
+	$.post("/signup", data)
 			.done(function(results){		
       console.log("created user: " + results);		
 	});

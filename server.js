@@ -37,10 +37,14 @@ app.use(morgan('dev'));
 app.use(express.static("public"));
 
 // required for passport
-app.use(session({ secret: 'dewey' })); // session secret
+app.use(morgan('dev')); // log every request to the console
+app.use(cookieParser()); // read cookies (needed for auth)
+app.use(bodyParser()); // get information from html forms
+app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
+
 
 
 // Routes ======================
@@ -49,7 +53,7 @@ require("./routes/library-api-routes.js")(app);
 require("./routes/groups-api-routes.js")(app);
 require("./routes/user-api-routes.js")(app);
 require("./routes/discussion-api-routes.js")(app);
-require("./routes/passport-routes.js")(app, passport);
+// require("./routes/passport-routes.js")(app, passport);
 require("./config/passport.js")(passport);
 
 // Syncing our sequelize models and then starting our Express app

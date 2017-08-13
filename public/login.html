@@ -30,18 +30,19 @@
           <div class="login">
             <h2>Login</h2>
               <form action="/login" method="post">
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="text" class="form-control" name="email">
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" class="form-control" name="password">
-                </div>
-
-                <button type="submit" class="btn btn-warning btn-lg">Login</button>
-                <a class="btn modal-trigger" href="#modal2" id="modalButton">New User</a>
-            </form>
+                  <div>
+                      <label>Username:</label>
+                      <input type="text" name="username"/>
+                  </div>
+                  <div>
+                      <label>Password:</label>
+                      <input type="password" name="password"/>
+                  </div>
+                  <div>
+                      <input type="submit" value="Log In"/>
+                      <a class="btn modal-trigger" href="#modal2" id="modalButton">New User</a>
+                  </div>
+              </form>
           </div>
       </div>
     </div>
@@ -52,19 +53,22 @@
   <!-- Modal Structure -->
 <div id="modal2" class="modal">
   <div class="modal-content form-group">
-    <form>
-      <label for="email2">Email</label>
+    <form action="/signup" method="post">
+      <div class="form-group">
+        <label>Email</label>
+        <input type="text" id="email" name="email">
+      </div>
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" id="username" name="username">
+      </div>
+      <div class="form-group">
+        <label>Enter a Password</label>
+        <input type="text" id="password" name="password">
+      </div>
+<!--       <label for="passwordCheck">Re-type your Password</label>
       <br>
-      <input type="text" id="email">
-      <label for="username">Username</label>
-      <br>
-      <input type="text" id="username">
-      <label for="newPassword">Enter a Password</label>
-      <br>
-      <input type="password" id="password">
-      <label for="passwordCheck">Re-type your Password</label>
-      <br>
-      <input type="password" id="passwordCheck">
+      <input type="password" id="passwordCheck"> -->
       <div class="modal-footer">
         <a href="#!" class="modal-action modal-close btn-flat"  id="submitNewUser">Signup</a>
       </div>
