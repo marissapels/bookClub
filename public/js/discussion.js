@@ -1,15 +1,3 @@
-//Initialize Firebase
-var config = {
-  apiKey: "AIzaSyBUVyIW2d33WHzArLsdPx3X-X39qV-SZLY",
-  authDomain: "bookclub-ed08b.firebaseapp.com",
-  databaseURL: "https://bookclub-ed08b.firebaseio.com",
-  projectId: "bookclub-ed08b",
-  storageBucket: "bookclub-ed08b.appspot.com",
-  messagingSenderId: "874403788158"
-};
-firebase.initializeApp(config);
-var database = firebase.database();
-
 // Global variables
 var chatName, username;
 

@@ -11,9 +11,6 @@ module.exports = function (sequelize, DataTypes) {
 
 		comments: {
 			type: DataTypes.TEXT
-		},
-		firebase : {
-			type: DataTypes.TEXT
 		}
 	});
 
