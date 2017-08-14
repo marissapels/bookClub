@@ -25,15 +25,19 @@
   margin-left:0px;
   font-size:1.8em;
   font-family: 'Inconsolata', monospace;
+  background: none;
 }
 
 
 /*Styles for every page*/
+input {
+  text-align:center;
+}
 
 nav {
-  background:#739ab5;
+  background:none;
   color:white;
-  height: 70px;
+  height: 100px;
   line-height: 70px;
 }
 
@@ -48,6 +52,7 @@ h1 {
   height:70px;
   line-height:70px;
   font-family: 'Inconsolata', monospace;
+  font-weight:bold;
 }
 
 nav ul a{
@@ -60,7 +65,7 @@ h2 {
   font-family: 'PT Mono', monospace;
   font-size: 1.8em;
   font-weight: bold;
-  background:grey;
+  background:#524242;
   padding:5px;
   color:white;
 
@@ -70,18 +75,19 @@ h2 {
 }
 
 .library {
-  background: #edeeef;
+  background-image: url("../img/bookshelf2.jpg");
+  background-size:cover;
 }
 
 .bookList, .bookInfo, .discussions, .groups, .login {
-  background: rgba(237, 238, 239,0.9);
+  background: rgba(237, 238, 239,0.8);
   margin: 25px 6px;
   min-height:450px;
   text-align:center;
   font-family: 'Inconsolata', monospace;
   font-weight: bold;
   font-size: 1.1em;
-  border: solid grey 2px;
+  border: solid #524242 2px;
 }
 
 .bookInfo p {
@@ -100,8 +106,9 @@ td, tr {
 }
 
 .btn {
-  margin-left: 2px !important;
-  margin-bottom: 2px !important;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin: 15px 5px;
 }
 
 #member-modal, #groups-modal {

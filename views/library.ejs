@@ -11,51 +11,51 @@
   <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 
-<body class="library load">
+<body class="library">
 
-<div>
+
   <!-- Navigation Bar -->
-  <nav class="z-depth-0">
-    <div class="nav-wrapper">
-    <a href="library.html" class="brand-logo"><h1>Dewey.</h1></a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="/library" id="libraryPage">My Library</a></li>
-        <li><a href="/groups">Groups</a></li>
-        <li><a href="/discover">Discover</a></li>
-        <li><a href="/logout" id="logout">Log Out</a></li>
-      </ul>
-    </div>
-  </nav>
-  
-  <!-- Container to create and show books -->
-  <div class="container">
-    <div class="row">
-      <div class="col s4">
-        <div class="bookList">
-          <h2><%= user.name %>'s Bookshelf</h2>
-          
-          <a class="btn" id="viewBooks">View Books</a>
-          <!-- Modal Trigger -->
-          <a class="btn modal-trigger" href="#modal1" id="modalButton">Add a Book</a>
+<nav class="z-depth-0">
+  <div class="nav-wrapper">
+  <a href="library.html" class="brand-logo"><h1>Dewey.</h1></a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a href="/library" id="libraryPage">My Library</a></li>
+      <li><a href="/groups">Groups</a></li>
+      <li><a href="/discover">Discover</a></li>
+      <li><a href="/logout" id="logout">Log Out</a></li>
+    </ul>
+  </div>
+</nav>
 
-          <!-- Append Book Info -->
-          <table id="tableLibrary"></table>
-        </div>
+<!-- Container to create and show books -->
+<div class="container">
+  <div class="row">
+    <div class="col s4">
+      <div class="bookList">
+        <h2><%= user.name %>'s Bookshelf</h2>
+        
+        <a class="btn" id="viewBooks">View Books</a>
+        <!-- Modal Trigger -->
+        <a class="btn modal-trigger" href="#modal1" id="modalButton">Add a Book</a>
+
+        <!-- Append Book Info -->
+        <table id="tableLibrary"></table>
       </div>
-      <div class="col s8">
-        <div class="bookInfo">
-          <h2>Book Report</h2> 
-          <p id="chooseTitle"></p>
-          <p id="chooseAuthor"></p>
-          <p id="chooseRate"></p>
-          <p id="chooseSummary"></p>
-          <p id="chooseComments"></p>
-          <img src="" id="chooseImage">
-        </div>
+    </div>
+    <div class="col s8">
+      <div class="bookInfo">
+        <h2>Book Report</h2> 
+        <p id="chooseTitle"></p>
+        <p id="chooseAuthor"></p>
+        <p id="chooseRate"></p>
+        <p id="chooseSummary"></p>
+        <p id="chooseComments"></p>
+        <img src="" id="chooseImage">
       </div>
     </div>
   </div>
 </div>
+
 
 
   <!-- Modal Structure -->

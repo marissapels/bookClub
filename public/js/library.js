@@ -22,8 +22,8 @@ $(document).on("click", "#bookSubmit", function(){
 });
 
 $(document).on("click", "#viewBooks", function(){
-event.preventDefault();
-showBooks();
+	event.preventDefault();
+	showBooks();
 });
 
 //function to add book to Library API
