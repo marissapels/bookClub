@@ -3,7 +3,7 @@ module.exports = function(app, passport) {
 
     //--------------------Signup Page---------------------------------
     app.get('/', function(req, res) {
-        res.render('signup.ejs'); // load the index.ejs file
+        res.render('home.ejs'); // load the index.ejs file
     });
 
     app.get('/signup', function(req, res) {

@@ -2,8 +2,36 @@
   box-sizing:border-box;
 }
 
+/*Home Page*/
+.home{
+  background-image: url("../img/landingPage.jpg");
+  background-size:cover;
+}
+
+.landing{
+  color:white;
+  font-family: 'Inconsolata', monospace;
+  margin: 30px 0px;
+  font-weight:bold;
+}
+
+.landing h1 {
+  padding-left:0px;
+  font-family: 'Inconsolata', monospace;
+}
+
+.landing h2 {
+  padding-left:0px;
+  margin-left:0px;
+  font-size:1.8em;
+  font-family: 'Inconsolata', monospace;
+}
+
+
+/*Styles for every page*/
+
 nav {
-  background:#5e6672;
+  background:#739ab5;
   color:white;
   height: 70px;
   line-height: 70px;
@@ -27,22 +55,14 @@ nav ul a{
   font-size:1.2em;
 }
 
-.library {
-    background-image: url("../img/bookshelf.jpg");
-}
-
-h1 {
-  margin:0;
-  padding-left:50px;
-  font-family: 'PT Mono', monospace;
-  font-weight:bold;
-}
-
 h2 {
-  margin: 10px;
+  margin: 0px;
   font-family: 'PT Mono', monospace;
-  font-size: 2.7em;
+  font-size: 1.8em;
   font-weight: bold;
+  background:grey;
+  padding:5px;
+  color:white;
 
 }
 .container {
@@ -50,20 +70,18 @@ h2 {
 }
 
 .library {
-  background-image: url("../img/bookshelf.jpg");
-  background-size:cover;
+  background: #edeeef;
 }
 
 .bookList, .bookInfo, .discussions, .groups, .login {
-  background: rgba(220, 223, 229,0.9);
-  margin:20px;
+  background: rgba(237, 238, 239,0.9);
+  margin: 25px 6px;
   min-height:450px;
   text-align:center;
-  border-radius:20px;
-  padding:10px;
   font-family: 'Inconsolata', monospace;
   font-weight: bold;
   font-size: 1.1em;
+  border: solid grey 2px;
 }
 
 .bookInfo p {
