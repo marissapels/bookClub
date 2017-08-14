@@ -1,98 +1,71 @@
+var passport = require('passport')
+var LocalStrategy = require('passport-local').Strategy;
+var db = require("../models");
+
 module.exports = function(passport) {
-
-  var passport = require('passport')
-  var LocalStrategy = require('passport-local').Strategy;
-  var User = require("../models/user.js");
-
   passport.serializeUser(function(user, done) {
         done(null, user.id);
     });
 
-  passport.deserializeUser(function(user, done) {
-        User.findAll({
-          where: {
-            id:user.id
-          }
-        }, function(err, user) {
-            done(err, user);
-        });
+  passport.deserializeUser(function(id, done) {
+    db.User.findOne({
+      where: {
+        id: id
+      },
+    }).then(function(result) {
+        done(null, result);
     });
+  });
 
-  passport.use(new LocalStrategy({
-      usernameField: 'email',
+  passport.use('local-signup', new LocalStrategy({
+      usernameField: 'username',
+      nameField: 'name',
       passwordField: 'password',
       passReqToCallback: true
     },
-    function(email, password, done) {
-      User.findAll({ 
+    function(req, username, password, done) {
+      db.User.findOne({ 
         where : {
-          email: email 
+          email: username
         }
       }).then(function(user) {
-
-
-        if (user)
+        if (user !==null)
         {
-          return done(null, false, {
-            message: "That email is already taken"
-          });
+          return done(null, false, req.flash('signupMessage',"That email is already taken"));
         } else
         {
-          var data={
-            email: email,
+          var newUser={
+
+            email: username,
+            name: req.body.name,
             password: password
           };
 
-          User.create(data).then(function(newUser, created){
-            if (!newUser){
-              return done (null, false);
-            }
-            if (newUser) {
-              return done(null, newUser);
-            }
-            console.log("a new user has been created");
+          db.User.create(newUser).then(function(result){
+            newUser.id=result.id;
+            return done(null, newUser);
           });
         }
       });
   }));
 
   //LOCAL SIGNIN
-passport.use('local', new LocalStrategy(
+  passport.use('local-login', new LocalStrategy(
     {
-        usernameField: 'email', 
+        usernameField: 'username', 
         passwordField: 'password',
         passReqToCallback: true 
     },
-    function(req, email, password, done) {
-        var User = require("../models/user.js");
-        var isValidPassword = function(password) {
-        } 
-          User.findAll({
-              where: {
-                  email: email
-              }
-          }).then(function(user) {
-              if (!user) { 
-                  return done(null, false, {
-                      message: 'Email does not exist'
-                  }); 
-              }
-              if (!isValidPassword(user.password, password)) {
-                  return done(null, false, {
-                      message: 'Incorrect password.'
-                  });
-              }
-              var userinfo = user.get();
-              return done(null, userinfo);
-              console.log("successfully signed in");
-          }).catch(function(err) {
-              console.log("Error:", err);
-              return done(null, false, {
-                  message: 'Something went wrong with your Signin'
-              });
-          });
-    }
- 
-));
-};
-
+    function(req, username, password, done) {
+      db.User.findOne({
+          where: {
+              email: username
+          }
+      }).then(function(result) {
+          if (result===null) { 
+              return done(null, false);
+          }
+          return done(null,result)
+      });
+  }));
+}

@@ -20,6 +20,7 @@ var PORT = process.env.PORT || 8080;
 
 // Requiring our models for syncing
 var db = require("./models");
+app.set('view engine', 'ejs');
 
 // Requiring data
 /* var userData = require("./public/data/data-user.js");
@@ -48,11 +49,10 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 
 
 // Routes ======================
-require("./routes/html-routes.js")(app, passport);
 require("./routes/library-api-routes.js")(app);
-require("./routes/groups-api-routes.js")(app);
-require("./routes/user-api-routes.js")(app);
-require("./routes/discussion-api-routes.js")(app);
+// require("./routes/groups-api-routes.js")(app);
+// require("./routes/user-api-routes.js")(app);
+// require("./routes/discussion-api-routes.js")(app);
 require("./routes/passport-routes.js")(app, passport);
 require("./config/passport.js")(passport);
 
@@ -74,7 +74,5 @@ db.sequelize.sync({ force: true }).then(function () {
     console.log("App listening on PORT " + PORT);
   });
 });
-
-
 
 

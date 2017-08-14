@@ -1,8 +1,8 @@
 var db = require("../models");
 
 module.exports = function(app){
-	app.get("/api/library/:id", function (req,res){
-		db.Library.findAll({ where: { firebase: req.params.id}})
+	app.get("/api/library/", function (req,res){
+		db.Library.findAll()
 		.then(function(results){
 			res.json(results);
 		});
@@ -12,8 +12,7 @@ module.exports = function(app){
 		db.Library.create({
 			title: req.body.title,
 			author: req.body.author,
-			comments: req.body.comments,
-			firebase: req.body.firebase
+			comments: req.body.comments
 		}).then(function(results){
 			res.json(results);
 		});

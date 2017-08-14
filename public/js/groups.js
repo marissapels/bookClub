@@ -1,48 +1,5 @@
 $(document).ready(function () {
 
-var firebaseId = localStorage.getItem("firebaseUID");
-console.log(firebaseId)
-$.get("/api/firebase/" + firebaseId, function(data){
-    var currentUserID = data[0].id;
-    console.log(currentUserID)
-    getGroups(currentUserID);
-})
-
-    // //Initialize Firebase
-var loggedIn = false;
-
-var database = firebase.database();
-
-firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    // User is signed in.
-    var displayName = user.displayName;
-    var email = user.email;
-    var uid = user.uid;
-    var providerData = user.providerData;
-    loggedIn = true;
-  } else {
-    loggedIn=false;
-  }
-});
-
-var dataMethods = {
-  //Function that logs out a user that is logged in
-  logOut: function() {
-      firebase.auth().signOut().then(function() {
-      // Sign-out successful.
-      }).catch(function(error) {
-      // An error happened.
-          console.log(error);
-      });
-  }
-}
-
-//Logout
-$("#logout").on("click", function(){
-    dataMethods.logOut();
-});
-
 /*************Firebase Click Events*************/
 
     $('.modal').modal();
