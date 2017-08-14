@@ -53,7 +53,7 @@ require("./routes/library-api-routes.js")(app);
 require("./routes/groups-api-routes.js")(app);
 require("./routes/user-api-routes.js")(app);
 require("./routes/discussion-api-routes.js")(app);
-// require("./routes/passport-routes.js")(app, passport);
+require("./routes/passport-routes.js")(app, passport);
 require("./config/passport.js")(passport);
 
 // Syncing our sequelize models and then starting our Express app

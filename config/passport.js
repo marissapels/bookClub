@@ -8,8 +8,12 @@ module.exports = function(passport) {
         done(null, user.id);
     });
 
-  passport.deserializeUser(function(id, done) {
-        User.findById(id, function(err, user) {
+  passport.deserializeUser(function(user, done) {
+        User.findAll({
+          where: {
+            id:user.id
+          }
+        }, function(err, user) {
             done(err, user);
         });
     });
@@ -20,7 +24,7 @@ module.exports = function(passport) {
       passReqToCallback: true
     },
     function(email, password, done) {
-      User.findOne({ 
+      User.findAll({ 
         where : {
           email: email 
         }
@@ -53,7 +57,7 @@ module.exports = function(passport) {
   }));
 
   //LOCAL SIGNIN
-passport.use('local-signin', new LocalStrategy(
+passport.use('local', new LocalStrategy(
     {
         usernameField: 'email', 
         passwordField: 'password',
@@ -63,30 +67,30 @@ passport.use('local-signin', new LocalStrategy(
         var User = require("../models/user.js");
         var isValidPassword = function(password) {
         } 
-        User.findOne({
-            where: {
-                email: email
-            }
-        }).then(function(user) {
-            if (!user) { 
-                return done(null, false, {
-                    message: 'Email does not exist'
-                }); 
-            }
-            if (!isValidPassword(user.password, password)) {
-                return done(null, false, {
-                    message: 'Incorrect password.'
-                });
-            }
-            var userinfo = user.get();
-            return done(null, userinfo);
-            console.log("successfully signed in");
-        }).catch(function(err) {
-            console.log("Error:", err);
-            return done(null, false, {
-                message: 'Something went wrong with your Signin'
-            });
-        });
+          User.findAll({
+              where: {
+                  email: email
+              }
+          }).then(function(user) {
+              if (!user) { 
+                  return done(null, false, {
+                      message: 'Email does not exist'
+                  }); 
+              }
+              if (!isValidPassword(user.password, password)) {
+                  return done(null, false, {
+                      message: 'Incorrect password.'
+                  });
+              }
+              var userinfo = user.get();
+              return done(null, userinfo);
+              console.log("successfully signed in");
+          }).catch(function(err) {
+              console.log("Error:", err);
+              return done(null, false, {
+                  message: 'Something went wrong with your Signin'
+              });
+          });
     }
  
 ));
