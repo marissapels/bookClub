@@ -14,9 +14,9 @@ module.exports = function (sequelize, DataTypes) {
 		}
 	});
 
-	// Library.associate = function (models) {
-	// 	Library.belongsTo(models.User);
-	// };
+	Library.associate = function (models) {
+		Library.belongsTo(models.User);
+	};
 
 	return Library;
 };

@@ -45,8 +45,11 @@ module.exports = function(app, passport) {
     app.get('/library', isLoggedIn, function(req, res) {
         res.render('library.ejs', {
             user : req.user // get the user out of session and pass to template
+
         });
+        console.log(req.user);
     });
+    app.get('/library/api', isLoggedIn);
     app.get('/groups', isLoggedIn, function(req, res) {
         res.render('groups.ejs');
     });

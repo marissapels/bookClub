@@ -14,7 +14,7 @@ $(document).on("click", "#bookSubmit", function(){
 	var newBook = {
 		title: $("#title").val().trim(),
 		author: $("#author").val().trim(),
-		comments: $("#comments").val().trim(),
+		comments: $("#comments").val().trim()
 	};
 	console.log(newBook);
 	addBook(newBook);
@@ -24,6 +24,9 @@ $(document).on("click", "#bookSubmit", function(){
 $(document).on("click", "#viewBooks", function(){
 	event.preventDefault();
 	showBooks();
+	console.log($("#usernameTest").val());
+	/*console.log(req.user);*/
+
 });
 
 //function to add book to Library API
