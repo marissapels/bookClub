@@ -1,12 +1,24 @@
+// Initialize Firebase
+var config = {
+  apiKey: "AIzaSyBUVyIW2d33WHzArLsdPx3X-X39qV-SZLY",
+  authDomain: "bookclub-ed08b.firebaseapp.com",
+  databaseURL: "https://bookclub-ed08b.firebaseio.com",
+  projectId: "bookclub-ed08b",
+  storageBucket: "bookclub-ed08b.appspot.com",
+  messagingSenderId: "874403788158"
+};
+firebase.initializeApp(config);
+var database = firebase.database();
+
 // Global variables
 var chatName, username;
 
 /****************** Firebase Chat Functions *******************/
 // On-click event to open and post to specific discussions in Firebase
 $(document).on("click", ".disc-btn", function(){
+  getUser();
   // Variables to store information for Firebase
   chatName = $(this).attr("data-key");
-  username = "Whitney"; //Make this dynamic for group members
   // Create chat directories with unique names
   var chatData = database.ref("/chat/" + chatName);
 
@@ -17,28 +29,27 @@ $(document).on("click", ".disc-btn", function(){
   // Render message to page. Update chat on screen when new message detected - ordered by 'time' value
   chatData.orderByChild("time").on("child_added", function(snapshot) {
     $("#chat-messages").append("<p class=chatMessages><span>"+ snapshot.val().name + "</span>: " + snapshot.val().message + "</p>");
-    // Keeps div scrolled to bottom on each update.
     $("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight); 
   });
 
   // Unbind chat when clicked off of modal. Prevent multiple messages.
-  $("#chat-send").off('click')
-    // Chat send button listener, grabs input and pushes to firebase.
-    $("#chat-send").click(function() {
-      if ($("#chat-input").val() !== "") {
-        var message = $("#chat-input").val();
-        chatData.push({
-          name: username,
-          message: message,
-          time: firebase.database.ServerValue.TIMESTAMP
-        });
-        $("#chat-input").val("");
-      }
-    });
+  // Chat send button listener, grabs input and pushes to firebase.
+  $("#chat-send").off('click');
+  $("#chat-send").click(function() {
+    if ($("#chat-input").val() !== "") {
+      var message = $("#chat-input").val();
+      chatData.push({
+        name: username,
+        message: message,
+        time: firebase.database.ServerValue.TIMESTAMP
+      });
+      $("#chat-input").val("");
+    }
+  });
     
-  // Chatbox input listener
-  $("#chat-input").off('keypress')
+  // Unbind chat when clicked off of modal. Prevent multiple messages.
   // Chat send keypress listener, grabs input and pushes to firebase.
+  $("#chat-input").off('keypress');
   $("#chat-input").keypress(function(e) {
     if (e.keyCode === 13 && $("#chat-input").val() !== "") {
       var message = $("#chat-input").val();
@@ -52,12 +63,17 @@ $(document).on("click", ".disc-btn", function(){
   });
 })
 
-
+/****************** Get User's Name for chats *******************/
+function getUser(){
+  $.get("/api/user", function(user){
+    username = user[0].name;
+    console.log("Username is " + username);
+  });
+};
 
 /****************** Display Discussions *******************/
 // Function to read all active discussions
-
-/* function readDiscussions(){
+ function readDiscussions(){
   $.get("/api/group/discussions", function(data){
     for (var i=0; i<data.length; i++){
       var discussionRow = $("<li>");
@@ -83,7 +99,7 @@ $(document).on("click", ".disc-btn", function(){
       $('.collapsible').collapsible();
     }
   })
-} */
+} 
 
 /****************** Create New Discussions *******************/
 // Function to create new discussions
@@ -129,5 +145,5 @@ $(document).ready(function(){
 
 
 // Call functions here
-//readDiscussions();
+readDiscussions();
 newDiscussion();

@@ -26,15 +26,15 @@ module.exports = function (app) {
             })
      */
 
-    app.get("/api/firebase/:id", function(req, res){
-        db.User.findAll({
-            where: {
-                firebase: req.params.id
-            }
-        }).then(function(data){
-            res.json(data)
-        })
-    })
+    // app.get("/api/firebase/:id", function(req, res){
+    //     db.User.findAll({
+    //         where: {
+    //             firebase: req.params.id
+    //         }
+    //     }).then(function(data){
+    //         res.json(data)
+    //     })
+    // })
 
     app.get("/api/users/:user/groups/discussions", function (req, res) {
 
@@ -74,12 +74,12 @@ module.exports = function (app) {
         db.Group.findAll({})
             .then(function (groups) {
                 res.json(groups);
-            })
+        })
     });
 
     app.post("/api/groups", function (req, res) {
         db.Group.create({
-            name: req.body.name,
+            name: req.body.name
         })
             .then(function (result) {
                 res.json(result);
