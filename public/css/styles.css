@@ -1,5 +1,6 @@
-* {
+.body {
   box-sizing:border-box;
+  color:navy;
 }
 
 /*Home Page*/
@@ -28,6 +29,39 @@
   background: none;
 }
 
+.start {
+  background-image:url("../img/bookshelf2.jpg");
+  background-size:cover;
+}
+
+/*Library*/
+
+.personalInfo {
+  border:solid navy 2px;
+  border-radius:10px;
+}
+
+#profilePicture {
+  width:79%;
+}
+
+.about {
+  text-align:center;
+}
+
+.personalInfo{
+  background:white;
+}
+
+.bookList {
+  margin-top: 30px;
+  border-radius:10px;
+  min-height:500px;
+  text-align:center;
+  background:white;
+  box-sizing:border-box;
+}
+
 
 /*Styles for every page*/
 input {
@@ -36,14 +70,17 @@ input {
 
 nav {
   background:none;
-  color:white;
+  color:navy;
   height: 100px;
   line-height: 70px;
+  border-top:navy 9px solid;
 }
 
 nav ul a {
   font-size: 1.2em;
   padding: 0 30px;
+  font-size:1.2em;
+  color:navy;
 }
 
 h1 {
@@ -53,11 +90,7 @@ h1 {
   line-height:70px;
   font-family: 'Inconsolata', monospace;
   font-weight:bold;
-}
-
-nav ul a{
-  padding: 0 30px;
-  font-size:1.2em;
+  color:navy;
 }
 
 h2 {
@@ -65,29 +98,31 @@ h2 {
   font-family: 'PT Mono', monospace;
   font-size: 1.8em;
   font-weight: bold;
-  background:#524242;
   padding:5px;
-  color:white;
+  color:navy;
 
 }
 .container {
-  width:90%;
+  width:95%;
+  box-sizing:border-box;
 }
 
 .library {
-  background-image: url("../img/bookshelf2.jpg");
+  background:#d5dce8;
   background-size:cover;
+  box-sizing:border-box;
 }
 
-.bookList, .bookInfo, .discussions, .groups, .login {
+.bookInfo, .discussions, .groups, .login {
   background: rgba(237, 238, 239,0.8);
-  margin: 25px 6px;
+  margin: 25px 0px;
   min-height:450px;
   text-align:center;
   font-family: 'Inconsolata', monospace;
   font-weight: bold;
   font-size: 1.1em;
   border: solid #524242 2px;
+  border-radius:10px;
 }
 
 .bookInfo p {

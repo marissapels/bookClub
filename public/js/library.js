@@ -48,7 +48,7 @@ function showBooks(){
     
 			$("#tableLibrary").append(newRow);
 		}
-	});
+	})
 }
 
 // **************************************Google Books API******************************************
