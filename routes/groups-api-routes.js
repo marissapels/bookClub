@@ -2,66 +2,59 @@ var db = require("../models");
 
 module.exports = function (app) {
 
-    /*     app.get("/api/test", function (req, res) {
-            db.User.findById(1).then(function (user) {
-                user.getGroups({ include: [db.Discussion] })
-            })
-        });
-    
-        app.get("/api/test2", function (req, res) {
-            db.Discussion.findAll({
-                where: {
-                    id: 1
-                },
-                include: [db.Group.getUsers()]
-            }).then(function (data) {
-                //dbdata[0].Group.id
-                res.json(data);
-            })
-            
-        }); */
+    // When the page loads, get all the groups and discussions associated with the user
+    app.get("/api/groups/discussions", function (req, res) {
 
-    /*         app.get("/api/id", function (req, res) {
-                db.User.findById(1)
-            })
-     */
-
-    // app.get("/api/firebase/:id", function(req, res){
-    //     db.User.findAll({
-    //         where: {
-    //             firebase: req.params.id
-    //         }
-    //     }).then(function(data){
-    //         res.json(data)
-    //     })
-    // })
-
-    app.get("/api/users/:user/groups/discussions", function (req, res) {
-
-        db.User.findById(req.params.user)
+        db.User.findById(req.user.id)
             .then(function (user) {
-                user.getGroups({
-                    include: [db.Discussion]
+                if (typeof user.getGroups === 'function') {
+                    user.getGroups({
+                        include: [db.Discussion]
+                    })
+                        .then(function (groups) {
+                            res.json(groups);
+                        });
+                }
+            });
+    });
+
+    // Add a new group and associate the user to that group
+    app.post("/api/groups", function (req, res) {
+        var ID = req.user.id;
+        db.Group.create({
+            name: req.body.name
+        })
+            .then(function (group) {
+                var groupID = group.id;
+                db.User.findById(ID).then(function (user) {
+                    user.addGroup(groupID)
                 })
-                    .then(function (groups) {
-                        res.json(groups);
-                    });
-            });
+                res.json(group)
+            })
     });
 
-    app.get("/api/users/:user/groups/", function (req, res) {
-
-        db.User.findById(req.params.user)
-            .then(function (user) {
-                user.getGroups()
-                    .then(function (groups) {
-                        res.json(groups);
-                    });
-            });
+    // Create new discussion in database and associate it with a group
+    app.post("/api/groups/:group/discussions", function (req, res) {
+        db.Discussion.create({
+            name: req.body.name,
+            GroupId: req.params.group
+        }).then(function (results) {
+            res.json(results)
+        });
     });
 
-    app.post("/api/users/:user/groups", function (req, res) {
-        db.User.findById(req.params.user)
+
+    // Get all Groups so they can be populated in the "Join a Group" autocomplete
+    app.get("/api/groups", function (req, res) {
+        db.Group.findAll({})
+            .then(function (groups) {
+                res.json(groups);
+            })
+    });
+
+    // Add user to an already exsiting group/groups
+    app.post("/api/users/groups", function (req, res) {
+        db.User.findById(req.user.id)
             .then(function (user) {
                 user.addGroup(req.body.Ids)
                     .then(function (result) {
@@ -70,36 +63,7 @@ module.exports = function (app) {
             })
     });
 
-    app.get("/api/groups", function (req, res) {
-        db.Group.findAll({})
-            .then(function (groups) {
-                res.json(groups);
-        })
-    });
-
-    app.post("/api/groups", function (req, res) {
-        db.Group.create({
-            name: req.body.name
-        })
-            .then(function (result) {
-                res.json(result);
-                db.User.findById(req.body.UserId).then(function (user) {
-                    user.addGroup(result.id)
-                })
-            })
-    });
-
-
-    app.post("/api/users", function (req, res) {
-        db.User.create({
-            username: req.body.username,
-            firebase: req.body.firebase
-        }).then(function (results) {
-            res.json(results);
-        });
-    });
-
-
+    // Get all members of a group to display in "Members" modal
     app.get("/api/groups/:id/members", function (req, res) {
         db.Group.findById(req.params.id)
             .then(function (group) {
@@ -110,14 +74,7 @@ module.exports = function (app) {
             })
     });
 
-
-    app.get("/api/users", function (req, res) {
-        db.User.findAll({})
-            .then(function (users) {
-                res.json(users);
-            })
-    });
-
+    // Add a user to a user's group
     app.post("/api/groups/:id/members", function (req, res) {
         db.Group.findById(req.params.id)
             .then(function (group) {
