@@ -40,13 +40,14 @@ function addBook(data){
 function showBooks(){
 	$.get("/api/library/", function(data){
 		for (var i = 0; i < data.length; i++) {
-			var newRow = $("<tr>");
+			var newRow = $("<div>");
+			googleBook(data[i].title)
 			newRow.append("<td>"+ data[i].title + "</td>");
 			newRow.addClass("book")
 			newRow.attr("value", data[i].title);
 			newRow.attr("data-author", data[i].author);
     
-			$("#tableLibrary").append(newRow);
+			$("#tableLibrary").append(newBook);
 		}
 	})
 }
@@ -80,10 +81,12 @@ function googleBook(titleSearch) {
 		method: "GET"
 	}).done(function(response){
 		console.log(response)
-		var results = response.items[0].volumeInfo;
-		$("#chooseAuthor").html("Author: "+results.authors[0]);
-		$("#chooseRate").html("Average Rating: "+results.averageRating+"/5.0");
-		$("#chooseSummary").html("Summary: "+results.description);
-		$("#chooseImage").attr("src",results.imageLinks.smallThumbnail);
+		// var results = response.items[0].volumeInfo;
+		// $("#chooseAuthor").html("Author: "+results.authors[0]);
+		// $("#chooseRate").html("Average Rating: "+results.averageRating+"/5.0");
+		// $("#chooseSummary").html("Summary: "+results.description);
+		// $("#chooseImage").attr("src",results.imageLinks.smallThumbnail);
+		var newBook = $("<div>");
+		newBook.append($("<img src='"results.imageLinks.smallThumbnail"'>"));
 	});
 };
