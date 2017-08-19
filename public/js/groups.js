@@ -1,18 +1,14 @@
 $(document).ready(function () {
 
-/*************Firebase Click Events*************/
-
     $('.modal').modal();
     $('.collapsible').collapsible();
+    var usersGroups;
 
-    //***** Change this to be updated for active user
-    //var firebaseId = firebase code;
-    //$.get(mysql user id from firebase id)
+    getGroups();
 
-    // getGroups();
-
-    function getGroups(currentUserID) {
-        var queryUrl = "/api/users/" + currentUserID + "/groups/discussions"
+    // Get the user's groups and discussions when the page loads
+    function getGroups() {
+        var queryUrl = "/api/groups/discussions"
 
         $.get(queryUrl, function (data) {
             usersGroups = data;
@@ -20,7 +16,7 @@ $(document).ready(function () {
         })
     };
 
-
+    // Display the user's groups and discussions
     function displayGroups(data) {
         console.log(data);
         for (var i = 0; i < data.length; i++) {
@@ -62,7 +58,6 @@ $(document).ready(function () {
             memberButton.html("Members");
 
             itemBody.append(discButton, memberButton);
-
             newItem.append(itemHeader, itemBody);
             $("#groupList").append(newItem);
 
@@ -77,22 +72,14 @@ $(document).ready(function () {
     });
 
     $('#add-created-group').on("click", function () {
-        $.get("/api/firebase/" + firebaseId, function(data){
-            var currentUserID = data[0].id;
-            var nameInput = $('.userInp3').val().trim();
+        var nameInput = $('.userInp3').val().trim();
 
-            var newGroup = {
-                name: nameInput,
-                UserId: currentUserID
-            }
-
-            $.post("/api/groups", newGroup, function (data) {
-                console.log(data);
-                var dataArray = [];
-                dataArray.push(data);
-                displayGroups(dataArray);
-                $('.collapsible').collapsible();
-            })
+        $.post("/api/groups", { name: nameInput }, function (data) {
+            console.log(data);
+            var dataArray = [];
+            dataArray.push(data);
+            displayGroups(dataArray);
+            $('.collapsible').collapsible();
         })
     });
 
@@ -103,21 +90,14 @@ $(document).ready(function () {
         $('#add-created-discussion').attr("group-id", id);
     });
 
-
     $('#add-created-discussion').on("click", function () {
         var nameInput = $('.userInp4').val().trim();
         var id = $(this).attr("group-id");
 
-        var newDiscussion = {
-            name: nameInput,
-        }
-
         var queryUrl = "api/groups/" + id + "/discussions"
 
-        $.post(queryUrl, newDiscussion, function (data) {
-
+        $.post(queryUrl, { name: nameInput }, function (data) {
             $('.discussionBtnArea' + data.GroupId).append("<a class='waves-effect waves-light btn modal-trigger disc-btn blue' href='#chat' data-key=chat" + data.id + ">" + data.name + "</a>");
-
             $('.collapsible').collapsible();
         })
     });
@@ -140,7 +120,6 @@ $(document).ready(function () {
                 var newChip = $("<div>");
                 newChip.addClass("chip");
                 newChip.text(usersGroups[i].name);
-
                 $('#groups').append(newChip);
             }
 
@@ -155,7 +134,7 @@ $(document).ready(function () {
     });
 
     $('#add-groups').on("click", function () {
-
+        var newGroupArray = [];
         var groupsToAdd = [];
         $('.chips-autocomplete .chip').each(function (index, obj) {
             var trimmedVal = $(this).text().replace(/close/g, '');
@@ -171,8 +150,6 @@ $(document).ready(function () {
             }
         });
 
-        var queryUrl = "/api/users/" + currentUserID + "/groups"
-
         var groupIds = [];
 
         groupsToAdd.forEach(function (groupName) {
@@ -181,25 +158,23 @@ $(document).ready(function () {
             groupIds.push(groupID);
         });
 
-        $.post(queryUrl, { Ids: groupIds }, function (data) {
-
+        $.post("/api/users/groups", { Ids: groupIds }, function (data) {
             for (var i = 0; i < groupsToAdd.length; i++) {
-
                 var newChip = $("<div>");
                 newChip.addClass("chip");
                 newChip.text(groupsToAdd[i]);
-
-                /*                 var check = $("<i>");
-                                check.addClass("material-icons close");
-                                check.text("check");
-                
-                                newChip.append(check); */
                 $('#groups').append(newChip);
+
             }
         })
     });
 
+    $('#groups-modal-close').on("click", function () {
+        location.reload();
+    })
+
     var allUserData;
+    // Object for holding all user info to be displayed in "add a member" modal autocomplete
     var allUsers = {};
 
     $(document).on("click", ".view-members", function () {
@@ -222,7 +197,7 @@ $(document).ready(function () {
                 var newChip = $("<div>");
                 newChip.addClass("chip");
                 newChip.attr("user-id", data[i].id);
-                newChip.text(data[i].userName);
+                newChip.text(data[i].name);
 
                 var userImage = $("<img>");
                 userImage.attr("src", data[i].photoRef);
@@ -237,7 +212,7 @@ $(document).ready(function () {
             allUserData = data;
 
             for (var i = 0; i < data.length; i++) {
-                allUsers[data[i].userName] = data[i].photoRef;
+                allUsers[data[i].name] = data[i].photoRef;
             }
             console.log(allUsers);
             $('input.autocomplete').autocomplete({
@@ -251,23 +226,20 @@ $(document).ready(function () {
     }
 
     $("#add-user").on("click", function () {
-        var groupID = $('#members').attr("group-id");
-        var queryUrl = "/api/groups/" + groupID + "/members";
 
         var userName = $('.userInp').val().trim();
-
-        var index = allUserData.findIndex(x => x.userName == userName);
-
+        var index = allUserData.findIndex(x => x.name == userName);
         var newUserID = allUserData[index].id;
         var newUserPhoto = allUserData[index].photoRef;
+
+        var groupID = $('#members').attr("group-id");
+        var queryUrl = "/api/groups/" + groupID + "/members";
 
         var addedUser = {
             id: newUserID
         }
 
         $.post(queryUrl, addedUser, function (data) {
-            console.log(data[0]);
-
             $('.userInp').val("");
 
             var newChip = $("<div>");
@@ -284,8 +256,6 @@ $(document).ready(function () {
 
         })
     });
-
-
 
 });
 
