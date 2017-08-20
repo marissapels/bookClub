@@ -7,6 +7,37 @@ $(document).on("click", "#modalButton", function(){
 	$("#title, #author, #comments").val("");
 });
 
+//edit profile
+$(document).on("click","#editProfile", function(){
+	$("#personalName").replaceWith("<input type='text' id='editPersonalName' placeholder='Name'>");
+	$("#personalFavorite").replaceWith("<input type='text' id='editPersonalFavorite' placeholder='Favorite Book'>");
+	$("#personalCurrent").replaceWith("<input type='text' id='editPersonalCurrent' placeholder='Currently Reading'>");
+	$("#editProfile").replaceWith("<button id='updateProfile'> Update </button>");
+});
+
+$(document).on("click", "#updateProfile",function(){
+	var newName=$("#editPersonalName").val().trim();
+	$("#editPersonalName").replaceWith("<h2 id='personalName'>"+newName+"</h2>");
+	var newFavorite=$("#editPersonalFavorite").val().trim();
+	$("#editPersonalFavorite").replaceWith("<p id='personalFavorite'> Favorite Book: "+newFavorite+"</p>");
+	var newCurrent=$("#editPersonalCurrent").val().trim();
+	$("#editPersonalCurrent").replaceWith("<p id='personalCurrent'> Currently Reading: "+newCurrent+"</p>");
+	$("#updateProfile").replaceWith("<button id='editProfile'> Edit </button>");
+	var userInfo = {
+		name: newName,
+		currentlyReading: newCurrent,
+		favoriteBook: newFavorite
+	};
+	$.ajax({
+      method: "PUT",
+      url: "/api/users",
+      data: userInfo
+    })
+    .done(function(){
+    });
+})
+
+
 //When book submit button is clicked, it retrieves data from search fields and posts info to Library API
 $(document).on("click", "#bookSubmit", function(){
 	event.preventDefault();

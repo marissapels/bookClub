@@ -36,9 +36,10 @@
         <img id="profilePicture" src="../img/marissa.png" class="circle responsive-img">
       </div>
       <div class="row personalInfo">
-        <h2 id="personalName">Marissa Pels</h2>
+        <h2 id="personalName"><%= user.name %></h2>
         <p id="personalFavorite">Favorite Book: The Power of One</p>
-        <p id="personalCurrent">Currently reading: You Don't Know JS</p>
+        <p id="personalCurrent">Currently Reading: You Don't Know JS</p>
+        <button id="editProfile" class="btn">Edit</button>
       </div>
     </div>
     <!-- <div class="col s1"></div> -->
@@ -103,6 +104,23 @@
       <a href="#!" class="modal-action modal-close btn-flat"  id="bookSubmit">Add</a>
     </div>
   </div>
+  
+  <!-- Modal to edit profile -->
+<!--   <div id="profileModal" class="modal">
+    <div class="modal-content">
+      <form>
+        <label for="editName">Name</label>
+        <input type="text" id="editName">
+        <label for="editCurrentlyReading">Currently Reading</label>
+        <input type="text" id="editCurrentlyReading">       
+        <label for="editFavoriteBook">Favorite Book</label>
+        <input type="text" id="editFavoriteBook">
+      </form>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close btn-flat"  id="updateProfile">Update</a>
+    </div>
+  </div> -->
 
   <!-- Custom Script -->
   <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>

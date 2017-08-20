@@ -34,52 +34,11 @@
   background-size:cover;
 }
 
-/*Library*/
-
-.personalInfo {
-  border:solid navy 2px;
-  border-radius:10px;
+.initialNav {
+  background:none;
+  border:none;
+  color:white;
 }
-
-#profilePicture {
-  width:79%;
-}
-
-.about {
-  text-align:center;
-  margin-right: 15px;
-}
-
-.personalInfo{
-  background:white;
-}
-
-.row .col.s9 {
-    width: 72%;
-}
-
-.bookList {
-  margin-top: 30px;
-  border-radius:10px;
-  min-height:500px;
-  text-align:center;
-  background:white;
-  box-sizing:border-box;
-  padding:0px;
-}
-
-/*CSS for each book added to bookshelf*/
-.book {
-  padding: 5px 8px;
-  display: inline-block;
-  max-width: 175px;
-  margin: auto;
-}
-
-.title {
-  margin:0 auto;
-}
-
 
 /*Styles for every page*/
 input {
@@ -87,10 +46,10 @@ input {
 }
 
 nav {
-  background:none;
-  color:navy;
-  height: 100px;
-  line-height: 70px;
+  background:#7384a0;
+  color:#fff;
+  height: 84px;
+  line-height: 84px;
   border-top:navy 9px solid;
 }
 
@@ -98,7 +57,7 @@ nav ul a {
   font-size: 1.2em;
   padding: 0 30px;
   font-size:1.2em;
-  color:navy;
+  color:#fff;
 }
 
 h1 {
@@ -123,10 +82,11 @@ h2 {
 .container {
   width:95%;
   box-sizing:border-box;
+  margin-top: 20px;
 }
 
 .library {
-  background:#d5dce8;
+  background:#e9ebee;
   background-size:cover;
   box-sizing:border-box;
 }
@@ -143,9 +103,7 @@ h2 {
   border-radius:10px;
 }
 
-.bookInfo p {
-    margin: 8px;
-}
+
 
 td, tr {
     padding: 5px;
@@ -166,6 +124,56 @@ td, tr {
 
 #member-modal, #groups-modal {
   overflow: visible;
+}
+
+/*Library*/
+
+.personalInfo {
+  border:solid navy 2px;
+  border-radius:10px;
+}
+
+#profilePicture {
+  width:79%;
+}
+
+.about {
+  text-align:center;
+  margin-right: 15px;
+}
+
+.personalInfo{
+  background:white;
+}
+
+.row .col.s9 {
+    width: 72%;
+}
+
+.bookInfo p {
+    margin: 8px;
+}
+
+.bookList {
+  margin-top: 30px;
+  border-radius:10px;
+  min-height:500px;
+  text-align:center;
+  background:white;
+  box-sizing:border-box;
+  padding:0px;
+}
+
+/*CSS for each book added to bookshelf*/
+.book {
+  padding: 5px 8px;
+  display: inline-block;
+  max-width: 175px;
+  margin: auto;
+}
+
+.title {
+  margin:0 auto;
 }
 
 /* discovery page */
