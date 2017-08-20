@@ -42,12 +42,12 @@ function showBooks(){
 		for (var i = 0; i < data.length; i++) {
 			var newRow = $("<div>");
 			googleBook(data[i].title)
-			newRow.append("<td>"+ data[i].title + "</td>");
-			newRow.addClass("book")
-			newRow.attr("value", data[i].title);
-			newRow.attr("data-author", data[i].author);
+			// newRow.append("<td>"+ data[i].title + "</td>");
+			// newRow.addClass("book")
+			// newRow.attr("value", data[i].title);
+			// newRow.attr("data-author", data[i].author);
     
-			$("#tableLibrary").append(newBook);
+			// $("#tableLibrary").append(newRow);
 		}
 	})
 }
@@ -55,22 +55,22 @@ function showBooks(){
 // **************************************Google Books API******************************************
 
 //when a book title is selected, it shows book info on HTML
-$(document).on("click", ".book", function(){
-	$("#chooseTitle, #chooseComments, #chooseAuthor, #chooseRate, #chooseSummary").html("");
-	$("#chooseImage").attr("src","");
-	var clickedTitle = $(this).attr("value");
+// $(document).on("click", ".book", function(){
+// 	$("#chooseTitle, #chooseComments, #chooseAuthor, #chooseRate, #chooseSummary").html("");
+// 	$("#chooseImage").attr("src","");
+// 	var clickedTitle = $(this).attr("value");
 
-var query = "/api/library/";
-	googleBook(clickedTitle);
-	$.get(query, function(data){
-		for (var i = 0; i<data.length; i++){
-			if (clickedTitle===data[i].title){
-				$("#chooseTitle").html("Title: "+data[i].title);
-				$("#chooseComments").html("My Comments: "+data[i].comments);
-			}
-		}
-	});
-});
+// var query = "/api/library/";
+	// googleBook(clickedTitle);
+// 	$.get(query, function(data){
+// 		for (var i = 0; i<data.length; i++){
+// 			if (clickedTitle===data[i].title){
+// 				$("#chooseTitle").html("Title: "+data[i].title);
+// 				$("#chooseComments").html("My Comments: "+data[i].comments);
+// 			}
+// 		}
+// 	});
+// };
 
 function googleBook(titleSearch) {
 	var apiKey = "AIzaSyBUVyIW2d33WHzArLsdPx3X-X39qV-SZLY";
@@ -81,12 +81,19 @@ function googleBook(titleSearch) {
 		method: "GET"
 	}).done(function(response){
 		console.log(response)
-		// var results = response.items[0].volumeInfo;
+		var results = response.items[0].volumeInfo;
+		var newBook=$("<div class='book valign-wrapper'>");
+		var image=$("<img>").attr("src",results.imageLinks.smallThumbnail);
+		var title= $("<div>"+results.title+"</div>");
 		// $("#chooseAuthor").html("Author: "+results.authors[0]);
 		// $("#chooseRate").html("Average Rating: "+results.averageRating+"/5.0");
 		// $("#chooseSummary").html("Summary: "+results.description);
 		// $("#chooseImage").attr("src",results.imageLinks.smallThumbnail);
-		var newBook = $("<div>");
-		newBook.append($("<img src='"results.imageLinks.smallThumbnail"'>"));
+		// var newBook = $("<div>");
+		// $("#tableLibrary").append("<p class='book'><img src='"+results.imageLinks.smallThumbnail+"'>"+results.title+"</p>");
+		// newBook.append("<p>"+results.title+"</p>");
+		newBook.append(image);
+		newBook.append(title);
+		$("#tableLibrary").append(newBook);
 	});
 };

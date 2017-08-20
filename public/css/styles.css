@@ -47,10 +47,15 @@
 
 .about {
   text-align:center;
+  margin-right: 15px;
 }
 
 .personalInfo{
   background:white;
+}
+
+.row .col.s9 {
+    width: 72%;
 }
 
 .bookList {
@@ -60,6 +65,19 @@
   text-align:center;
   background:white;
   box-sizing:border-box;
+  padding:0px;
+}
+
+/*CSS for each book added to bookshelf*/
+.book {
+  padding: 5px 8px;
+  display: inline-block;
+  max-width: 175px;
+  margin: auto;
+}
+
+.title {
+  margin:0 auto;
 }
 
 
