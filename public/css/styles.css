@@ -58,6 +58,7 @@ nav ul a {
   padding: 0 30px;
   font-size:1.2em;
   color:#fff;
+  line-height:76px;
 }
 
 h1 {
@@ -102,8 +103,6 @@ h2 {
   border: solid #524242 2px;
   border-radius:10px;
 }
-
-
 
 td, tr {
     padding: 5px;
@@ -164,6 +163,17 @@ td, tr {
   padding:0px;
 }
 
+#updateProfile, #editProfile {
+  color: blue;
+  text-decoration: underline;
+  float: right;
+  padding-right: 10px;
+}
+
+#updateProfile:hover, #editProfile:hover{
+  cursor:pointer;
+}
+
 /*CSS for each book added to bookshelf*/
 .book {
   padding: 5px 8px;
@@ -177,8 +187,6 @@ td, tr {
 }
 
 /* discovery page */
-
-
 .discover {
     background-image: url("http://sprint.no/wp-content/uploads/2015/03/Book.gif");
     

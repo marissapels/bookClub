@@ -23,4 +23,14 @@ module.exports = function(app){
 			res.json(results);
 		});
 	});
+
+	app.delete("/api/library/:book", function(req,res){
+		db.Library.destroy({
+			where: {
+				id: req.params.id
+			}
+		}).then(function(results){
+			res.json(results);
+		});
+	});
 };

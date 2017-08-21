@@ -7,6 +7,7 @@
   <!-- Latest compiled and minified CSS & JS -->
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Inconsolata|PT+Mono|Saira+Semi+Condensed|Titillium+Web" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
@@ -39,20 +40,14 @@
         <h2 id="personalName"><%= user.name %></h2>
         <p id="personalFavorite">Favorite Book: The Power of One</p>
         <p id="personalCurrent">Currently Reading: You Don't Know JS</p>
-        <button id="editProfile" class="btn">Edit</button>
+        <a id="editProfile">Edit</a>
       </div>
     </div>
     <!-- <div class="col s1"></div> -->
     <div class="col s9 bookList">
     <h2><%= user.name %>'s Bookshelf</h2>
-      <a class="btn" id="viewBooks">View Books</a>
       <a class="btn modal-trigger" href="#modal1" id="modalButton">Add a Book</a>
       <div id="tableLibrary"></div>
-      <p id="chooseAuthor"></p>
-      <p id="chooseRate"></p>
-      <p id="chooseSummary"></p>
-      <p id="chooseComments"></p>
-      <img src="" id="chooseImage">
     </div>
   </div>
 </div>
@@ -105,22 +100,21 @@
     </div>
   </div>
   
-  <!-- Modal to edit profile -->
-<!--   <div id="profileModal" class="modal">
+  <!-- Modal to view book info -->
+    <div id="modalBookInfo" class="modal">
     <div class="modal-content">
-      <form>
-        <label for="editName">Name</label>
-        <input type="text" id="editName">
-        <label for="editCurrentlyReading">Currently Reading</label>
-        <input type="text" id="editCurrentlyReading">       
-        <label for="editFavoriteBook">Favorite Book</label>
-        <input type="text" id="editFavoriteBook">
-      </form>
+      <p id="chooseTitle">Title</p>
+      <p id="chooseAuthor">Author</p>
+      <p id="chooseRating">Rating</p>
+      <p id="chooseSummary">Summary</p>      
+      <p id="chooseComments">Comments</p>
     </div>
     <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close btn-flat"  id="updateProfile">Update</a>
+      <a href="#!" class="modal-action modal-close btn-flat"  id="deleteBook">Delete</a>
+      <a href="#!" class="modal-action modal-close btn-flat"  id="closeInfo">Close</a>
     </div>
-  </div> -->
+  </div>
+
 
   <!-- Custom Script -->
   <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>

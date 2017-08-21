@@ -1,18 +1,13 @@
 //allows modal to open up
 $('.modal').modal();
-
-//When modal button is clicked, it clears out search contents from previous search
-$(document).on("click", "#modalButton", function(){
-	event.preventDefault();
-	$("#title, #author, #comments").val("");
-});
+showBooks();
 
 //edit profile
 $(document).on("click","#editProfile", function(){
 	$("#personalName").replaceWith("<input type='text' id='editPersonalName' placeholder='Name'>");
 	$("#personalFavorite").replaceWith("<input type='text' id='editPersonalFavorite' placeholder='Favorite Book'>");
 	$("#personalCurrent").replaceWith("<input type='text' id='editPersonalCurrent' placeholder='Currently Reading'>");
-	$("#editProfile").replaceWith("<button id='updateProfile'> Update </button>");
+	$("#editProfile").replaceWith("<a id='updateProfile'> Update </a>");
 });
 
 $(document).on("click", "#updateProfile",function(){
@@ -22,7 +17,7 @@ $(document).on("click", "#updateProfile",function(){
 	$("#editPersonalFavorite").replaceWith("<p id='personalFavorite'> Favorite Book: "+newFavorite+"</p>");
 	var newCurrent=$("#editPersonalCurrent").val().trim();
 	$("#editPersonalCurrent").replaceWith("<p id='personalCurrent'> Currently Reading: "+newCurrent+"</p>");
-	$("#updateProfile").replaceWith("<button id='editProfile'> Edit </button>");
+	$("#updateProfile").replaceWith("<a id='editProfile'> Edit </a>");
 	var userInfo = {
 		name: newName,
 		currentlyReading: newCurrent,
@@ -38,6 +33,13 @@ $(document).on("click", "#updateProfile",function(){
 })
 
 
+
+
+//When modal button is clicked, it clears out search contents from previous search
+$(document).on("click", "#modalButton", function(){
+	event.preventDefault();
+	$("#title, #author, #comments").val("");
+});
 //When book submit button is clicked, it retrieves data from search fields and posts info to Library API
 $(document).on("click", "#bookSubmit", function(){
 	event.preventDefault();
@@ -52,12 +54,18 @@ $(document).on("click", "#bookSubmit", function(){
 	showBooks();
 });
 
-$(document).on("click", "#viewBooks", function(){
-	event.preventDefault();
-	showBooks();
-	console.log($("#usernameTest").val());
-	/*console.log(req.user);*/
-
+$(document).on("click",".book",function(){
+	var clickedTitle = $(this).attr("value");
+	console.log(clickedTitle);
+	googleBookInfo(clickedTitle);
+	$.get("api/library", function(data){
+		for (var i = 0; i<data.length; i++){
+			$("#chooseTitle").attr("data-id", data[i].id);
+			if (clickedTitle===data[i].title){
+				$("#chooseComments").html("My Comments: "+data[i].comments);
+			}
+		}
+	});
 });
 
 //function to add book to Library API
@@ -72,38 +80,26 @@ function showBooks(){
 	$.get("/api/library/", function(data){
 		for (var i = 0; i < data.length; i++) {
 			var newRow = $("<div>");
-			googleBook(data[i].title)
-			// newRow.append("<td>"+ data[i].title + "</td>");
-			// newRow.addClass("book")
-			// newRow.attr("value", data[i].title);
-			// newRow.attr("data-author", data[i].author);
-    
-			// $("#tableLibrary").append(newRow);
+			googleBookImage(data[i].title)
 		}
 	})
 }
 
-// **************************************Google Books API******************************************
+function deleteBook(){
+	var deleteId=$(this).attr("data-id");
+	$.ajax({
+      method: "DELETE",
+      url: "/api/library/"+deleteId
+    })
+    .done(function() {
+    });
+}
 
-//when a book title is selected, it shows book info on HTML
-// $(document).on("click", ".book", function(){
-// 	$("#chooseTitle, #chooseComments, #chooseAuthor, #chooseRate, #chooseSummary").html("");
-// 	$("#chooseImage").attr("src","");
-// 	var clickedTitle = $(this).attr("value");
+// **************Google Books API*************************
 
-// var query = "/api/library/";
-	// googleBook(clickedTitle);
-// 	$.get(query, function(data){
-// 		for (var i = 0; i<data.length; i++){
-// 			if (clickedTitle===data[i].title){
-// 				$("#chooseTitle").html("Title: "+data[i].title);
-// 				$("#chooseComments").html("My Comments: "+data[i].comments);
-// 			}
-// 		}
-// 	});
-// };
 
-function googleBook(titleSearch) {
+// Displays book image after it is added
+function googleBookImage(titleSearch) {
 	var apiKey = "AIzaSyBUVyIW2d33WHzArLsdPx3X-X39qV-SZLY";
 	var queryURL= "https://www.googleapis.com/books/v1/volumes?q=intitle:"+ titleSearch +"&key=" + apiKey;
 
@@ -113,18 +109,29 @@ function googleBook(titleSearch) {
 	}).done(function(response){
 		console.log(response)
 		var results = response.items[0].volumeInfo;
-		var newBook=$("<div class='book valign-wrapper'>");
+		var newBook=$("<a class='book modal-trigger' href='#modalBookInfo'>");
 		var image=$("<img>").attr("src",results.imageLinks.smallThumbnail);
 		var title= $("<div>"+results.title+"</div>");
-		// $("#chooseAuthor").html("Author: "+results.authors[0]);
-		// $("#chooseRate").html("Average Rating: "+results.averageRating+"/5.0");
-		// $("#chooseSummary").html("Summary: "+results.description);
-		// $("#chooseImage").attr("src",results.imageLinks.smallThumbnail);
-		// var newBook = $("<div>");
-		// $("#tableLibrary").append("<p class='book'><img src='"+results.imageLinks.smallThumbnail+"'>"+results.title+"</p>");
-		// newBook.append("<p>"+results.title+"</p>");
+		newBook.attr("value", results.title);
 		newBook.append(image);
 		newBook.append(title);
 		$("#tableLibrary").append(newBook);
+	});
+};
+//when a book title is selected, it shows book info on Modal
+function googleBookInfo(titleSearch) {
+	var apiKey = "AIzaSyBUVyIW2d33WHzArLsdPx3X-X39qV-SZLY";
+	var queryURL= "https://www.googleapis.com/books/v1/volumes?q=intitle:"+ titleSearch +"&key=" + apiKey;
+
+	$.ajax({
+		url: queryURL,
+		method: "GET"
+	}).done(function(response){
+		console.log(response)
+		var results = response.items[0].volumeInfo;
+		$("#chooseTitle").html("Title: "+results.title);
+		$("#chooseAuthor").html("Author: "+results.authors[0]);
+		$("#chooseRating").html("Average Rating: "+results.averageRating+"/5.0");
+		$("#chooseSummary").html("Summary: "+results.description);
 	});
 };
