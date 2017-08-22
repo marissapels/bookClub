@@ -186,6 +186,10 @@ td, tr {
   margin:0 auto;
 }
 
+#deleteBook{
+  float:left;
+}
+
 /* discovery page */
 .discover {
     background-image: url("http://sprint.no/wp-content/uploads/2015/03/Book.gif");

@@ -56,16 +56,26 @@ $(document).on("click", "#bookSubmit", function(){
 
 $(document).on("click",".book",function(){
 	var clickedTitle = $(this).attr("value");
-	console.log(clickedTitle);
+	console.log("clickedTitle: "+clickedTitle);
 	googleBookInfo(clickedTitle);
 	$.get("api/library", function(data){
 		for (var i = 0; i<data.length; i++){
-			$("#chooseTitle").attr("data-id", data[i].id);
 			if (clickedTitle===data[i].title){
+				console.log("dataTitle: "+data[i].title)
 				$("#chooseComments").html("My Comments: "+data[i].comments);
+				$("#chooseTitle").attr("data-id", data[i].id);
 			}
 		}
 	});
+});
+
+$(document).on("click","#closeInfo",function(){
+	event.preventDefault();
+});
+
+$(document).on("click","#deleteBook",function(){
+	var bookId=$("$chooseTitle").attr("data-id");
+	deleteBook(bookId);
 });
 
 //function to add book to Library API
@@ -79,14 +89,13 @@ function addBook(data){
 function showBooks(){
 	$.get("/api/library/", function(data){
 		for (var i = 0; i < data.length; i++) {
-			var newRow = $("<div>");
 			googleBookImage(data[i].title)
 		}
 	})
 }
 
-function deleteBook(){
-	var deleteId=$(this).attr("data-id");
+function deleteBook(deleteId){
+	// var deleteId=$(this).attr("data-id");
 	$.ajax({
       method: "DELETE",
       url: "/api/library/"+deleteId

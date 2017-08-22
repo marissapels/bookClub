@@ -24,7 +24,7 @@ module.exports = function(app){
 		});
 	});
 
-	app.delete("/api/library/:book", function(req,res){
+	app.delete("/api/library/:id", function(req,res){
 		db.Library.destroy({
 			where: {
 				id: req.params.id
