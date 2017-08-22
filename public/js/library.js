@@ -74,8 +74,9 @@ $(document).on("click","#closeInfo",function(){
 });
 
 $(document).on("click","#deleteBook",function(){
-	var bookId=$("$chooseTitle").attr("data-id");
+	var bookId=$("#chooseTitle").attr("data-id");
 	deleteBook(bookId);
+	showBooks();
 });
 
 //function to add book to Library API
@@ -87,6 +88,7 @@ function addBook(data){
 
 //Retrieves title from Library API and displays on HTML
 function showBooks(){
+	$("#tableLibrary").empty();
 	$.get("/api/library/", function(data){
 		for (var i = 0; i < data.length; i++) {
 			googleBookImage(data[i].title)
