@@ -60,7 +60,8 @@ module.exports = function(passport) {
     function(req, username, password, done) {
       db.User.findOne({
           where: {
-              email: username
+              email: username,
+              password: password
           }
       }).then(function(result) {
           if (result===null) { 

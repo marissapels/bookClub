@@ -11,6 +11,17 @@ module.exports = function(app){
 		});
 	});
 
+	// Get current user information
+	app.get("/api/user", function (req,res){
+		var useId = req.user.id;
+		db.User.findAll({where: {
+			id: useId
+		}})
+		.then(function(results){
+			res.json(results);
+		});
+	});
+
 	// app.get("/api/:groups/discussions", function(req, res){
 	// 	db.Group.findById(req.params.groups)
 	// 		.then(function(group){
