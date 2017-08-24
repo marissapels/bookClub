@@ -19,6 +19,7 @@ $(document).on("click", ".disc-btn", function(){
   getUser();
   // Variables to store information for Firebase
   chatName = $(this).attr("data-key");
+  console.log(chatName)
   // Create chat directories with unique names
   var chatData = database.ref("/chat/" + chatName);
 
@@ -128,11 +129,11 @@ function deleteDiscussion() {
 
 }
 
-// Function to determine active user
-function activeUser(){
-  $.get("/api/:user/:group/discussions", function(data){
-
-  })
+// Function to update discussion name
+// Add breadcrumbs for Groups > Discussion (http://materializecss.com/breadcrumbs.html)
+function updateDiscussion(){
+  var groupId = "";
+  var discussionId = "";
 }
 
 
@@ -140,10 +141,12 @@ function activeUser(){
 $(document).ready(function(){
   //Materialize javascript code for modal
   $('.modal').modal();
+  $('ul.tabs').tabs();
+
 });
 
 
 
 // Call functions here
-readDiscussions();
+// readDiscussions();
 newDiscussion();

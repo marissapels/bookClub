@@ -2,6 +2,7 @@ $(document).ready(function () {
 
     $('.modal').modal();
     $('.collapsible').collapsible();
+    $(".showDiscussions").hide();
     var usersGroups;
 
     getGroups();
@@ -26,30 +27,26 @@ $(document).ready(function () {
 
             var itemHeader = $("<div>");
             itemHeader.addClass("collapsible-header");
-            itemHeader.html(data[i].name)
+            itemHeader.html(data[i].name);
+            itemHeader.append("<a class='waves-effect waves-light btn-flat groupDiscBtn' group-id="+data[i].id+">See Discussions</a>");
 
             var itemBody = $("<div>");
             itemBody.addClass("collapsible-body");
 
-            var discussionButton = $("<div>");
-            discussionButton.addClass("discussionBtnArea" + data[i].id);
+            // var discussionButton = $("<div>");
+            // discussionButton.addClass("discussionBtnArea" + data[i].id);
 
-            if (data[i].Discussions) {
-                data[i].Discussions.forEach(function (item) {
-                    discussionButton.append($("<a class='waves-effect waves-light btn modal-trigger disc-btn blue' href='#chat' data-key=chat" + item.id + ">" + item.name + "</a>"));
-                    itemBody.append(discussionButton);
-                });
-            } else {
-                itemBody.append(discussionButton);
-            }
+            // if (data[i].Discussions) {
+            //     data[i].Discussions.forEach(function (item) {
+            //         discussionButton.append($("<a class='waves-effect waves-light btn modal-trigger disc-btn blue' href='#chat' data-key=chat" + item.id + ">" + item.name + "</a>"));
+            //         itemBody.append(discussionButton);
+            //     });
+            // } else {
+            //     itemBody.append(discussionButton);
+            // }
 
             var htmlBreak = $("<br>");
             itemBody.append(htmlBreak);
-
-            var discButton = $("<a>");
-            discButton.addClass("waves-effect waves-light btn create-discussion");
-            discButton.attr("group-id", data[i].id);
-            discButton.html("Add Discussion");
 
             var memberButton = $("<a>");
             memberButton.addClass("waves-effect waves-light btn view-members");
@@ -57,7 +54,7 @@ $(document).ready(function () {
             memberButton.attr("href", "#member-modal");
             memberButton.html("Members");
 
-            itemBody.append(discButton, memberButton);
+            itemBody.append(memberButton);
             newItem.append(itemHeader, itemBody);
             $("#groupList").append(newItem);
 
@@ -83,6 +80,31 @@ $(document).ready(function () {
         })
     });
 
+    // On-click event to show Disussions Panel and populate tabs
+    $(document).on("click", ".groupDiscBtn", function(){
+        $(".addTabs").empty();
+        var groupId = $(this).attr("group-id");
+        $(".showDiscussions").show();
+
+        $.get("/api/groups/"+groupId+"/discussions", function(discussions){
+            for (var i=0; i<discussions.length; i++){
+                var updateTabs = $("<li>");
+                updateTabs.addClass("tab");
+                updateTabs.append("<a class='disc-btn' href=#chat-"+discussions[i].id+" data-key=chat"+discussions[i].id+">"+discussions[i].name+"</a>");
+                $(".addTabs").append(updateTabs);
+            }
+        })
+
+        var noDiscussionTab = $("<li>");
+        noDiscussionTab.attr("id", "no-discussion");
+        noDiscussionTab.addClass("tab");
+        noDiscussionTab.append("<a href=#newDiscussion><i class='tiny material-icons'>add</i></a>");
+        $(".addTabs").append(noDiscussionTab);
+
+        addNewDiscussion(groupId);
+    })
+
+    // On-click event to open new discussion modal
     $(document).on("click", ".create-discussion", function () {
         $('.userInp4').val("");
         $('#new-discussion-modal').modal('open');
@@ -90,17 +112,20 @@ $(document).ready(function () {
         $('#add-created-discussion').attr("group-id", id);
     });
 
-    $('#add-created-discussion').on("click", function () {
-        var nameInput = $('.userInp4').val().trim();
-        var id = $(this).attr("group-id");
+    // On-click event that creates a new discussion
+    function addNewDiscussion(groupId){
+        $('#add-created-discussion').off("click");
+        $('#add-created-discussion').on("click", function () {
+            var nameInput = $('.userInp4').val().trim();
+            var queryUrl = "api/groups/" + groupId + "/discussions";
+            console.log(queryUrl);
 
-        var queryUrl = "api/groups/" + id + "/discussions"
-
-        $.post(queryUrl, { name: nameInput }, function (data) {
-            $('.discussionBtnArea' + data.GroupId).append("<a class='waves-effect waves-light btn modal-trigger disc-btn blue' href='#chat' data-key=chat" + data.id + ">" + data.name + "</a>");
-            $('.collapsible').collapsible();
-        })
-    });
+            $.post(queryUrl, { name: nameInput }, function (data) {
+                $(".addTabs").append("<li class='tab'><a class='disc-btn' href=#chat-"+data.id+" data-key=chat"+data.id+">"+data.name+"</a></li>");
+                $('.userInp4').val("");
+            })
+        });    
+    }
 
     var allGroupData;
     var allGroups = {};
