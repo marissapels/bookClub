@@ -17,11 +17,13 @@ $(document).on("click", "#updateProfile",function(){
 	$("#editPersonalFavorite").replaceWith("<p id='personalFavorite'> Favorite Book: "+newFavorite+"</p>");
 	var newCurrent=$("#editPersonalCurrent").val().trim();
 	$("#editPersonalCurrent").replaceWith("<p id='personalCurrent'> Currently Reading: "+newCurrent+"</p>");
-	$("#updateProfile").replaceWith("<a id='editProfile'> Edit </a>");
+	// var newPicture=$("#editPicture").val().trim();
+	// $("#editPicture").replaceWith("<p> id='photo </p>");
+	// $("#updateProfile").replaceWith("<a id='editProfile'> Edit </a>");
 	var userInfo = {
 		name: newName,
 		currentlyReading: newCurrent,
-		favoriteBook: newFavorite
+		favoriteBook: newFavorite,
 	};
 	$.ajax({
       method: "PUT",
@@ -30,6 +32,11 @@ $(document).on("click", "#updateProfile",function(){
     })
     .done(function(){
     });
+
+    // $.post("/pictureUpload", newPicture)
+    // 	.done(function(){
+    // 		console.log("upload Picture");
+    // 	});
 })
 
 

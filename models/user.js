@@ -17,6 +17,10 @@ module.exports = function (sequelize, DataTypes) {
         favoriteBook: {
             type: DataTypes.TEXT,
             allowNull:true
+        },
+        picture: {
+            type:DataTypes.TEXT,
+            allowNull: true
         }
     });
 

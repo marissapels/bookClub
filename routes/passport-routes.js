@@ -30,7 +30,6 @@ module.exports = function(app, passport) {
             failureFlash : true // allow flash messages
         }),
         function(req, res) {
-            console.log("hello");
 
             if (req.body.remember) {
               req.session.cookie.maxAge = 1000 * 60 * 3;
@@ -42,12 +41,10 @@ module.exports = function(app, passport) {
 
 //-------------------All other Page routes------------------------------
 //User must be logged in to access these routes
-    app.get('/library', isLoggedIn, function(req, res) {
+    app.get('/library', function(req, res) {
         res.render('library.ejs', {
             user : req.user // get the user out of session and pass to template
-
         });
-        console.log(req.user);
     });
     app.get('/library/api', isLoggedIn);
     app.get('/groups', isLoggedIn, function(req, res) {

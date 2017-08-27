@@ -34,12 +34,17 @@
   <div class="row">
     <div class="col s3 about">
       <div class="row">
-        <img id="profilePicture" src="../img/marissa.png" class="circle responsive-img">
+        <img id="profilePicture" src="../img/placeholder.png" class="circle responsive-img">
+        <form action="/uploadpicture" method="POST" enctype="multipart/form-data">
+          <input type="file" name="upload" multiple>
+          <input class="btn btn-primary" type="submit" value="Upload">
+        </form>
       </div>
       <div class="row personalInfo">
         <h2 id="personalName"><%= user.name %></h2>
         <p id="personalFavorite">Favorite Book: The Power of One</p>
         <p id="personalCurrent">Currently Reading: You Don't Know JS</p>
+        <p id="photo"></p>
         <a id="editProfile">Edit</a>
       </div>
     </div>

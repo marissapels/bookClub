@@ -9,8 +9,9 @@ var bodyParser = require("body-parser");
 var passport = require("passport");
 var morgan = require("morgan");
 var cookieParser = require('cookie-parser')
-var flash    = require('connect-flash');
-var session      = require('express-session');
+var flash = require('connect-flash');
+var session = require('express-session');
+var formidable = require("formidable");
 //Sets up Passport
 
 // Sets up the Express App
@@ -33,6 +34,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 app.use(morgan('dev'));
+app.use(bodyParser({uploadDir:'/path/to/temporary/directory/to/store/uploaded/files'}));
 
 // Static directory
 app.use(express.static("public"));
