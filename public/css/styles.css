@@ -230,3 +230,7 @@ div.card.medium{
   background-color: #0277bd;
   color: white;
 }
+
+.chat-messages {
+  text-align: left;
+}

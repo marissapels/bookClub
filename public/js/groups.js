@@ -1,6 +1,7 @@
 $(document).ready(function () {
 
     $('.modal').modal();
+    $('ul.tabs').tabs();
     $('.collapsible').collapsible();
     $(".showDiscussions").hide();
     var usersGroups;
@@ -83,6 +84,7 @@ $(document).ready(function () {
     // On-click event to show Disussions Panel and populate tabs
     $(document).on("click", ".groupDiscBtn", function(){
         $(".addTabs").empty();
+        $(".populate-chat").remove();
         var groupId = $(this).attr("group-id");
         $(".showDiscussions").show();
 
@@ -92,6 +94,13 @@ $(document).ready(function () {
                 updateTabs.addClass("tab");
                 updateTabs.append("<a class='disc-btn' href=#chat-"+discussions[i].id+" data-key=chat"+discussions[i].id+">"+discussions[i].name+"</a>");
                 $(".addTabs").append(updateTabs);
+
+                var populateChats = $("<div>");
+                populateChats.addClass("col s12 populate-chat");
+                populateChats.attr("id", "chat-"+discussions[i].id);
+                populateChats.append("<div class='chat-messages'></div><div class='modal-footer'><input type='text' class='chat-input' placeholder='Add to the conversation!'>"+
+                    "<a class='modal-action btn-flat chat-send'>Send</a></div>");
+                $(".addDiscussion").append(populateChats);
             }
         })
 
@@ -100,6 +109,16 @@ $(document).ready(function () {
         noDiscussionTab.addClass("tab");
         noDiscussionTab.append("<a href=#newDiscussion><i class='tiny material-icons'>add</i></a>");
         $(".addTabs").append(noDiscussionTab);
+
+        var createNewChat = $("<div>");
+        createNewChat.attr("id", "newDiscussion");
+        createNewChat.addClass("col s12 populate-chat");
+        createNewChat.append("Create a New Discussion Here <form class='col s12'><div class='row'><div class='input-field col s8'>"+
+            "<i class='material-icons prefix'>chat</i><input id='icon_prefix' type='text' class='validate userInp4'>"+
+            "<label for='icon_prefix' id='reset-input'>Discussion Name</label></div></div><div class='modal-footer'>"+
+            "<div class='row'><div class='col s12'></div></div><a href='#!' class='modal-action modal-close waves-effect waves-light btn' "+
+            "id='add-created-discussion'>Create</a></div></form>");
+        $(".addDiscussion").append(createNewChat);
 
         addNewDiscussion(groupId);
     })
@@ -112,6 +131,11 @@ $(document).ready(function () {
         $('#add-created-discussion').attr("group-id", id);
     });
 
+    // On-click event to clear discussion div
+    $(document).on("click", ".tab", function(){
+        // $(".chat-messages").empty();
+    })
+
     // On-click event that creates a new discussion
     function addNewDiscussion(groupId){
         $('#add-created-discussion').off("click");
@@ -122,6 +146,9 @@ $(document).ready(function () {
 
             $.post(queryUrl, { name: nameInput }, function (data) {
                 $(".addTabs").append("<li class='tab'><a class='disc-btn' href=#chat-"+data.id+" data-key=chat"+data.id+">"+data.name+"</a></li>");
+                $(".addDiscussion").append("<div class='col s12 populate-chat' id=chat-"+data.id+">"+
+                    "<div class='chat-messages'></div><div class='modal-footer'><input type='text' class='chat-input' placeholder='Add to the conversation!'>"+
+                    "<a class='modal-action btn-flat chat-send'>Send</a></div>");
                 $('.userInp4').val("");
             })
         });    
