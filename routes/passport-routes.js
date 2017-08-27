@@ -48,10 +48,14 @@ module.exports = function(app, passport) {
     });
     app.get('/library/api', isLoggedIn);
     app.get('/groups', isLoggedIn, function(req, res) {
-        res.render('groups.ejs');
+        res.render('groups.ejs', {
+            user: req.user
+        });
     });
     app.get('/discussions', isLoggedIn, function(req, res) {
-        res.render('discussions.ejs');
+        res.render('discussions.ejs', {
+            user: req.user
+        });
     })
     app.get('/discover', isLoggedIn, function(req, res) {
         res.render('discover.ejs');

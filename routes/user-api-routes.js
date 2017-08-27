@@ -10,11 +10,12 @@ var formidable = require("formidable");
 module.exports = function(app){
 	app.get("/api/users", function (req,res){
 		var userId = req.user.id;
-		db.User.findAll({})
+		db.User.findAll()
 		.then(function(results){
 			res.json(results);
 		});
 	});
+  
 	app.put("/api/users", function (req,res){
 		var userId = req.user.id;
 		db.User.update(
@@ -60,9 +61,18 @@ module.exports = function(app){
 		}).then(function(results){
 			res.json(results);
 		})
+	});
 		// res.sendfile(path.resolve(file.path));
 
 		// res.sendFile(__dirname+"")
 		
+	app.post("/api/users", function(req,res){
+		db.User.create({
+			username: req.body.username,
+			firebase: req.body.firebase
+		})
+      .then(function(results){
+			res.json(results);
+		});
 	});
 };

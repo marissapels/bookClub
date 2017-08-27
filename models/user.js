@@ -24,11 +24,8 @@ module.exports = function (sequelize, DataTypes) {
         }
     });
 
-    // User.associate = function (models) {
-    //     User.belongsToMany(models.Group, { through: models.UserGroup });
-    // };
-
     User.associate = function (models) {
+        User.belongsToMany(models.Group, { through: models.UserGroup });
         User.hasMany(models.Library);
     };
 
