@@ -16,6 +16,7 @@ var chatName, username;
 /****************** Firebase Chat Functions *******************/
 // On-click event to open and post to specific discussions in Firebase
 $(document).on("click", ".disc-btn", function(){
+  $(".addChats").empty();
   getUser();
   // Variables to store information for Firebase
   chatName = $(this).attr("data-key");
@@ -32,6 +33,13 @@ $(document).on("click", ".disc-btn", function(){
     $(".chat-messages").append("<p class=chatMessages><span>"+ snapshot.val().name + "</span>: " + snapshot.val().message + "</p>");
     $(".chat-messages").scrollTop($(".chat-messages")[0].scrollHeight); 
   });
+
+  var populateChats = $("<div>");
+  populateChats.addClass("col s12 populate-chat");
+  populateChats.attr("id", "chat-"+chatName);
+  populateChats.append("<div class='chat-messages'></div><div class='modal-footer'><input type='text' class='chat-input' placeholder='Add to the conversation!'>"+
+      "<a class='modal-action btn-flat chat-send'>Send</a></div>");
+  $(".addChats").append(populateChats);
 
   // Unbind chat when clicked off of modal. Prevent multiple messages.
   // Chat send button listener, grabs input and pushes to firebase.

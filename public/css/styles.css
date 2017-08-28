@@ -224,13 +224,24 @@ div.card.medium{
   margin-right: 8px;
 }
 
-.groupDiscBtn {
+/*Groups and Discussion Page*/
+
+.groupDiscBtn, .view-members {
   float: right;
   margin: 4px;
   background-color: #0277bd;
   color: white;
 }
 
-.chat-messages {
+.view-members {
+    background: #CA8E0D;
+}
+
+.chatMessages {
   text-align: left;
+  margin: 4px;
+}
+
+.userInp4{
+  width: 60%;
 }
