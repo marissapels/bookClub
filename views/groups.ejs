@@ -31,13 +31,12 @@
     <!-- Container to show existing groups -->
     <div class="container">
         <div class="row">
-            <div class="col s10 offset-s1">
+            <div class="col s7">
                 <div class="groups">
                     <h2><%= user.name %>'s Groups</h2>
                     <a class="waves-effect waves-light btn" href="#new-group-modal" id="create-group">Create New Group</a>
                     <a class="waves-effect waves-light btn" href="#groups-modal" id="join-groups">Join A Group</a>
 
-                    <!-- Generate List of Discussions here and ability to open individual chats-->
                     <div>
                         <!-- <table id="groupList"></table> -->
                         <ul class="collapsible popout" data-collapsible="accordion" id="groupList">
@@ -46,9 +45,49 @@
 
                 </div>
             </div>
+
+            <!-- Generate Discussions here and ability to open individual chats-->
+            <div class="col s5">
+                <div class="discussions">
+                   <h2><%= user.name %>'s Discussions</h2> 
+                   <div class="row showDiscussions">
+                    <div class="col s12 addDiscussion">
+                      <ul class="tabs addTabs">
+                        <li id="no-discussion" class="tab"><a class="active disc-btn" href="#newDiscussion"><i class="tiny material-icons">add</i></a></li>
+                      </ul>
+                    <div class="addChats"></div>
+
+
+                      <!-- Create new discussions here -->
+                      <!-- <span id="populate-chats">   -->
+<!--                           <div id="newDiscussion" class="col s12 populate-chat">Create a New Discussion Here
+                            <form class="col s12">
+                                <div class="row">
+                                    <div class="input-field col s8">
+                                        <i class="material-icons prefix">chat</i>
+                                        <input id="icon_prefix" type="text" class="validate userInp4">
+                                        <label for="icon_prefix" id="reset-input">Discussion Name</label>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <div class="row">
+                                        <div class="col s12"></div>
+                                    </div>
+                                    <a href="#!" class="modal-action modal-close waves-effect waves-light btn" id="add-created-discussion">Create</a>
+                                </div>
+                            </form>
+                          </div> -->
+                      <!-- </span> -->
+                      </div>
+
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
+    <!-- Chat message sending and modal -->
     <div id="chat" class="modal">
         <div class="modal-content">
             <!-- Chat Display Setup -->
@@ -64,6 +103,7 @@
         </div>
     </div>
 
+    <!-- New Group Modal -->
     <div id="new-group-modal" class="modal">
         <div class="modal-content">
             <h4>Create a Group</h4>
@@ -85,7 +125,8 @@
         </div>
     </div>
 
-    <div id="new-discussion-modal" class="modal">
+    <!-- New Discussion Modal -->
+<!--     <div id="new-discussion-modal" class="modal">
         <div class="modal-content">
             <h4>Create a Discussion</h4>
             <form class="col s12">
@@ -105,7 +146,8 @@
             </form>
         </div>
     </div>
-
+ -->
+    <!-- Join Groups modal with autocomplete feature -->
     <div id="groups-modal" class="modal">
         <div class="modal-content">
             <h4>Join Groups</h4>
@@ -129,6 +171,7 @@
         </div>
     </div>
 
+    <!-- Add member modal to groups -->
     <div id="member-modal" class="modal">
         <div class="modal-content">
             <h4>Group Members</h4>
