@@ -39,28 +39,33 @@ module.exports = function(app){
 		form.parse(req);
 		form.on("fileBegin", function(name, file){
 			file.path = __dirname + "\\uploads\\" + file.name;
-			var pictureLink=file.path;
-			app.put("/api/users", function(req,res){
-			var userId = req.user.id;
-				db.User.update(
-				{
-					picture: pictureLink
-				},
-				{
-					where: {
-						id: userId
-					}
-				}).then(function(results){
-					res.json(results);
-				});
-			});	
 		});
 		form.on("file", function(name,file){
 			console.log("Uploaded "+ file.name);
 			console.log("file path: "+file.path);
-		}).then(function(results){
-			res.json(results);
-		})
+			var pictureLink=file.path;
+			console.log("PICTURE LINK: "+pictureLink);
+			var userId = req.user.id;
+			db.User.update(
+			{
+				picture: pictureLink
+			},
+			{
+				where: {
+					id: userId
+				}
+			}).then(function(results){
+				res.json(results);
+			});
+		});
+		form.on('error', function(err) {
+			console.log(err);
+		});
+		form.on('end', function() {
+			console.log("UPLOADED");
+			res.end("success");
+
+		});
 	});
 		// res.sendfile(path.resolve(file.path));
 

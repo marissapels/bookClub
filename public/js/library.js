@@ -39,7 +39,9 @@ $(document).on("click", "#updateProfile",function(){
     // 	});
 })
 
-
+$(document).on("click", "#uploadSubmit",function(){
+	console.log($("#uploadPic").val());
+})
 
 
 //When modal button is clicked, it clears out search contents from previous search
