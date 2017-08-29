@@ -40,8 +40,13 @@ $(document).on("click", "#updateProfile",function(){
 })
 
 $(document).on("click", "#uploadSubmit",function(){
+	event.preventDefault();
 	console.log($("#uploadPic").val());
-})
+	$.get("/api/users", function(data){
+		var image=data[0].picture;
+		$("#profilePicture").attr("src", image);
+	});
+});
 
 
 //When modal button is clicked, it clears out search contents from previous search

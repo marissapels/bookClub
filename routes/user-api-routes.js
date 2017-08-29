@@ -10,7 +10,11 @@ var formidable = require("formidable");
 module.exports = function(app){
 	app.get("/api/users", function (req,res){
 		var userId = req.user.id;
-		db.User.findAll()
+		db.User.findAll({
+			where: {
+				id: userId
+			}
+		})
 		.then(function(results){
 			res.json(results);
 		});
@@ -63,7 +67,7 @@ module.exports = function(app){
 		});
 		form.on('end', function() {
 			console.log("UPLOADED");
-			res.end("success");
+			// res.end("success");
 
 		});
 	});
