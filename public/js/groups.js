@@ -18,7 +18,7 @@ $(document).ready(function () {
         })
     };
 
-    // Display the user's groups and discussions
+    // Display the user's groups
     function displayGroups(data) {
         console.log(data);
         for (var i = 0; i < data.length; i++) {
@@ -32,31 +32,6 @@ $(document).ready(function () {
             itemHeader.append("<a class='waves-effect waves-light btn-flat groupDiscBtn' group-id="+data[i].id+">See Discussions</a>");
             itemHeader.append("<a href='#member-modal' class='waves-effect waves-light btn-flat view-members' group-id="+data[i].id+">Members</a>")
 
-            // var itemBody = $("<div>");
-            // itemBody.addClass("collapsible-body");
-
-            // var discussionButton = $("<div>");
-            // discussionButton.addClass("discussionBtnArea" + data[i].id);
-
-            // if (data[i].Discussions) {
-            //     data[i].Discussions.forEach(function (item) {
-            //         discussionButton.append($("<a class='waves-effect waves-light btn modal-trigger disc-btn blue' href='#chat' data-key=chat" + item.id + ">" + item.name + "</a>"));
-            //         itemBody.append(discussionButton);
-            //     });
-            // } else {
-            //     itemBody.append(discussionButton);
-            // }
-
-            // var htmlBreak = $("<br>");
-            // itemBody.append(htmlBreak);
-
-            // var memberButton = $("<a>");
-            // memberButton.addClass("waves-effect waves-light btn view-members");
-            // memberButton.attr("group-id", data[i].id);
-            // memberButton.attr("href", "#member-modal");
-            // memberButton.html("Members");
-
-            // itemBody.append(memberButton);
             newItem.append(itemHeader);
             $("#groupList").append(newItem);
 
@@ -82,7 +57,7 @@ $(document).ready(function () {
         })
     });
 
-    // On-click event to show Disussions Panel and populate tabs
+    // On-click event to show Disussions Panel and populate tabs --> Initial load.
     $(document).on("click", ".groupDiscBtn", function(){
         $(".addTabs").empty();
         $(".populate-chat").remove();
@@ -99,8 +74,8 @@ $(document).ready(function () {
         })
 
         var noDiscussionTab = $("<li>");
-        noDiscussionTab.attr("id", "no-discussion");
-        noDiscussionTab.addClass("tab");
+        noDiscussionTab.addClass("tab no-discussion");
+        noDiscussionTab.attr("group-id", groupId);
         noDiscussionTab.append("<a href=#newDiscussion><i class='tiny material-icons'>add</i></a>");
         $(".addTabs").append(noDiscussionTab);
 
@@ -110,7 +85,7 @@ $(document).ready(function () {
         createNewChat.append("<p> Create a New Discussion Here </p><form><div class='input-field'>"+
             "<i class='material-icons prefix'>chat</i><input id='icon_prefix' type='text' class='validate userInp4' placeholder='Discussion Name'>"+
             "<a href='#!' class='waves-effect waves-light btn' id='add-created-discussion'>Create</a></div></form>");
-        $(".addDiscussion").append(createNewChat);
+        $(".addChats").append(createNewChat);
 
         addNewDiscussion(groupId);
     });
@@ -123,10 +98,21 @@ $(document).ready(function () {
         $('#add-created-discussion').attr("group-id", id);
     });
 
-    // On-click event to clear discussion div
-    $(document).on("click", ".tab", function(){
-        // $(".chat-messages").empty();
-    })
+    // On-click event for new discussion creation in tabs section --> not initial load
+    $(document).on("click", ".no-discussion", function(){
+        $(".populate-chat").remove();
+        var groupId = $(this).attr("group-id");
+
+        var createNewChat = $("<div>");
+        createNewChat.attr("id", "newDiscussion");
+        createNewChat.addClass("col s12 populate-chat");
+        createNewChat.append("<p> Create a New Discussion Here </p><form><div class='input-field'>"+
+            "<i class='material-icons prefix'>chat</i><input id='icon_prefix' type='text' class='validate userInp4' placeholder='Discussion Name'>"+
+            "<a href='#!' class='waves-effect waves-light btn' id='add-created-discussion'>Create</a></div></form>");
+        $(".addChats").append(createNewChat);
+
+        addNewDiscussion(groupId);
+    });
 
     // On-click event that creates a new discussion
     function addNewDiscussion(groupId){
@@ -138,9 +124,6 @@ $(document).ready(function () {
 
             $.post(queryUrl, { name: nameInput }, function (data) {
                 $(".addTabs").append("<li class='tab'><a class='disc-btn' href=#chat-"+data.id+" data-key=chat"+data.id+">"+data.name+"</a></li>");
-                // $(".addDiscussion").append("<div class='col s12 populate-chat' id=chat-"+data.id+">"+
-                //     "<div class='chat-messages'></div><div class='modal-footer'><input type='text' class='chat-input' placeholder='Add to the conversation!'>"+
-                //     "<a class='modal-action btn-flat chat-send'>Send</a></div>");
                 $('.userInp4').val("");
             })
         });    
