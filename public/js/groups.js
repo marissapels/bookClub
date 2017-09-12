@@ -90,14 +90,6 @@ $(document).ready(function () {
         addNewDiscussion(groupId);
     });
 
-    // On-click event to open new discussion modal
-    $(document).on("click", ".create-discussion", function () {
-        $('.userInp4').val("");
-        $('#new-discussion-modal').modal('open');
-        var id = $(this).attr("group-id");
-        $('#add-created-discussion').attr("group-id", id);
-    });
-
     // On-click event for new discussion creation in tabs section --> not initial load
     $(document).on("click", ".no-discussion", function(){
         $(".populate-chat").remove();
@@ -118,14 +110,16 @@ $(document).ready(function () {
     function addNewDiscussion(groupId){
         $('#add-created-discussion').off("click");
         $('#add-created-discussion').on("click", function () {
-            var nameInput = $('.userInp4').val().trim();
-            var queryUrl = "api/groups/" + groupId + "/discussions";
-            console.log(queryUrl);
+            if ($(".userInp4").val() !== ""){
+                var nameInput = $('.userInp4').val().trim();
+                var queryUrl = "api/groups/" + groupId + "/discussions";
+                console.log(queryUrl);
 
-            $.post(queryUrl, { name: nameInput }, function (data) {
-                $(".addTabs").append("<li class='tab'><a class='disc-btn' href=#chat-"+data.id+" data-key=chat"+data.id+">"+data.name+"</a></li>");
-                $('.userInp4').val("");
-            })
+                $.post(queryUrl, { name: nameInput }, function (data) {
+                    $(".addTabs").append("<li class='tab'><a class='disc-btn' href=#chat-"+data.id+" data-key=chat"+data.id+">"+data.name+"</a></li>");
+                    $('.userInp4').val("");
+                }); 
+            }
         });    
     }
 
