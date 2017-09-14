@@ -1,5 +1,6 @@
-* {
+.body {
   box-sizing:border-box;
+  color:navy;
 }
 
 /*Home Page*/
@@ -28,6 +29,16 @@
   background: none;
 }
 
+.start {
+  background-image:url("../img/bookshelf2.jpg");
+  background-size:cover;
+}
+
+.initialNav {
+  background:none;
+  border:none;
+  color:white;
+}
 
 /*Styles for every page*/
 input {
@@ -35,15 +46,19 @@ input {
 }
 
 nav {
-  background:none;
-  color:white;
-  height: 100px;
-  line-height: 70px;
+  background:#7384a0;
+  color:#fff;
+  height: 84px;
+  line-height: 84px;
+  border-top:navy 9px solid;
 }
 
 nav ul a {
   font-size: 1.2em;
   padding: 0 30px;
+  font-size:1.2em;
+  color:#fff;
+  line-height:76px;
 }
 
 h1 {
@@ -53,11 +68,7 @@ h1 {
   line-height:70px;
   font-family: 'Inconsolata', monospace;
   font-weight:bold;
-}
-
-nav ul a{
-  padding: 0 30px;
-  font-size:1.2em;
+  color:navy;
 }
 
 h2 {
@@ -65,33 +76,32 @@ h2 {
   font-family: 'PT Mono', monospace;
   font-size: 1.8em;
   font-weight: bold;
-  background:#524242;
   padding:5px;
-  color:white;
+  color:navy;
 
 }
 .container {
-  width:90%;
+  width:95%;
+  box-sizing:border-box;
+  margin-top: 20px;
 }
 
 .library {
-  background-image: url("../img/bookshelf2.jpg");
+  background:#e9ebee;
   background-size:cover;
+  box-sizing:border-box;
 }
 
-.bookList, .bookInfo, .discussions, .groups, .login {
+.bookInfo, .discussions, .groups, .login {
   background: rgba(237, 238, 239,0.8);
-  margin: 25px 6px;
+  margin: 25px 0px;
   min-height:450px;
   text-align:center;
   font-family: 'Inconsolata', monospace;
   font-weight: bold;
   font-size: 1.1em;
   border: solid #524242 2px;
-}
-
-.bookInfo p {
-    margin: 8px;
+  border-radius:10px;
 }
 
 td, tr {
@@ -115,9 +125,72 @@ td, tr {
   overflow: visible;
 }
 
+/*Library*/
+
+.personalInfo {
+  border:solid navy 2px;
+  border-radius:10px;
+}
+
+#profilePicture {
+  width:79%;
+}
+
+.about {
+  text-align:center;
+  margin-right: 15px;
+}
+
+.personalInfo{
+  background:white;
+}
+
+.row .col.s9 {
+    width: 72%;
+}
+
+.bookInfo p {
+    margin: 8px;
+}
+
+.bookList {
+  margin-top: 30px;
+  border-radius:10px;
+  min-height:500px;
+  text-align:center;
+  background:white;
+  box-sizing:border-box;
+  padding:0px;
+}
+
+#updateProfile, #editProfile {
+  color: blue;
+  text-decoration: underline;
+  float: right;
+  padding-right: 10px;
+}
+
+#updateProfile:hover, #editProfile:hover{
+  cursor:pointer;
+}
+
+/*CSS for each book added to bookshelf*/
+.book {
+  padding: 5px 8px;
+  display: inline-block;
+  max-width: 175px;
+  margin: auto;
+}
+
+.title {
+  margin:0 auto;
+}
+
+#deleteBook{
+  float:left;
+}
+
 /* discovery page */
-
-
 .discover {
     background-image: url("http://sprint.no/wp-content/uploads/2015/03/Book.gif");
     
@@ -149,4 +222,26 @@ div.card.medium{
 }
 .material-icons.left{
   margin-right: 8px;
+}
+
+/*Groups and Discussion Page*/
+
+.groupDiscBtn, .view-members {
+  float: right;
+  margin: 4px;
+  background-color: #0277bd;
+  color: white;
+}
+
+.view-members {
+    background: #CA8E0D;
+}
+
+.chatMessages {
+  text-align: left;
+  margin: 4px;
+}
+
+.userInp4{
+  width: 60%;
 }

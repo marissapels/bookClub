@@ -10,6 +10,14 @@ module.exports = function (sequelize, DataTypes) {
         password:{
             type: DataTypes.STRING
         },
+        currentlyReading:{
+            type: DataTypes.TEXT,
+            allowNull:true
+        },
+        favoriteBook: {
+            type: DataTypes.TEXT,
+            allowNull:true
+        },
         photoRef: {
             type: DataTypes.STRING
         }
